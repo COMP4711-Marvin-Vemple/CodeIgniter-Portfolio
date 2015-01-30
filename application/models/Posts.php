@@ -53,7 +53,7 @@ class Posts extends CI_Model {
         
         $i = ($page * $perPage) - $perPage;
         while ($i < count($this->data)) {
-            $retval[] = $this->data[i];
+            $retval[] = $this->data[$i];
             $i++;
         }
         
