@@ -23,7 +23,7 @@ class Posts extends CI_Model {
      * Construct the base CI_Model
      */
     public function __construct() {
-        parent::_construct();
+        parent::__construct();
     }
     
     /**
