@@ -25,7 +25,7 @@ class Post extends Application {
      */
     public function index() {
         $this->data['posts'] = $this->posts->getPaginated(1, Post::$POSTS_PER_PAGE);
-        $this->data['pagebody'] = Post::TEMPLATE_MULTIPLE;
+        $this->data['pagebody'] = Post::$TEMPLATE_MULTIPLE;
         $this->render();
     }
     
@@ -36,7 +36,7 @@ class Post extends Application {
      */
     public function page($page) {
         $this->data['posts'] = $this->posts->getPaginated($page, Post::$POSTS_PER_PAGE);
-        $this->data['pagebody'] = Post::TEMPLATE_MULTIPLE;
+        $this->data['pagebody'] = Post::$TEMPLATE_MULTIPLE;
         $this->render();
     }
     
@@ -47,7 +47,7 @@ class Post extends Application {
      */
     public function id($id) {
         $this->data['post'] = $this->posts->getById($id);
-        $this->data['pagebody'] = Post::TEMPLATE_SINGLE;
+        $this->data['pagebody'] = Post::$TEMPLATE_SINGLE;
         $this->render();
     }
 }
