@@ -1,25 +1,27 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+/**
+ * Welcome is the Controller that is executed by accessing "index". It has only one
+ * view which shows the homepage.
+ * 
+ * @author Calvin Rempel
+ */
+class Welcome extends Application {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
-	public function index()
-	{
-		$this->load->view('welcome_message');
-	}
+    /**
+     * The number of blog posts to show in "Recent Posts"
+     */
+    private static $NUM_RECENT_POSTS = 4;
+    
+    /**
+     * Controller for "Home" page. Loads "featured" posts
+     * and recent blog posts.
+     */
+    public function index() {
+        $this->data['featured_projects'] = $this->projects->getFeatured();
+        $this->data['recent_posts'] = $this->posts->getPaginated(1, Welcome::$NUM_RECENT_POSTS);
+        $this->data['pagebody'] = 'homepage';
+        $this->render();
+    }
 }
