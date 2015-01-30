@@ -25,7 +25,7 @@ class Repository extends Application {
      */
     public function index() {
         $this->data['repos'] = $this->repositories->getPaginated(1, Repository::$REPOS_PER_PAGE);
-        $this->data['pagebody'] = Repository::TEMPLATE_MULTIPLE;
+        $this->data['pagebody'] = Repository::$TEMPLATE_MULTIPLE;
         $this->render();
     }
     
@@ -36,7 +36,7 @@ class Repository extends Application {
      */
     public function page($page) {
         $this->data['repos'] = $this->repositories->getPaginated($page, Repository::$REPOS_PER_PAGE);
-        $this->data['pagebody'] = Repository::TEMPLATE_MULTIPLE;
+        $this->data['pagebody'] = Repository::$TEMPLATE_MULTIPLE;
         $this->render();
     }
     
@@ -47,7 +47,7 @@ class Repository extends Application {
      */
     public function id($id) {
         $this->data['repo'] = $this->repositories->getById($id);
-        $this->data['pagebody'] = Repository::TEMPLATE_SINGLE;
+        $this->data['pagebody'] = Repository::$TEMPLATE_SINGLE;
         $this->render();
     }
 }
