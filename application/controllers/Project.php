@@ -17,6 +17,9 @@ class Project extends Application {
      */
     private static $NUM_PROJECTS_PER_PAGE = 6;
     
+    /**
+     * Templates used for displaying data.
+     */
     private static $TEMPLATE_GRIDVIEW           = 'projects_gridview';
     private static $TEMPLATE_LISTVIEW           = 'projects_listview';
     private static $TEMPLATE_GRIDVIEW_SECTION   = '_projects_gridview';
@@ -35,7 +38,7 @@ class Project extends Application {
     /**
      * Display the selected page of Projects in a Grid View.
      * 
-     * @param int $page the page number of Projects to retrieve
+     * @param int $page the page number of Projects to retrieve (1-n)
      * @param string $filter a tag to filter Projects by        (CURRENTLY IGNORED)
      * @param string $sort a Project attribute to sort by       (CURRENTLY IGNORED)
      * @param string $sortOrder the order to sort by            (CURRENTLY IGNORED)
@@ -49,7 +52,7 @@ class Project extends Application {
     /**
      * Display the selected page of Projects in a List View.
      * 
-     * @param int $page the page number of Projects to retrieve
+     * @param int $page the page number of Projects to retrieve (1-n)
      * @param string $filter a tag to filter Projects by        (CURRENTLY IGNORED)
      * @param string $sort a Project attribute to sort by       (CURRENTLY IGNORED)
      * @param string $sortOrder the order to sort by            (CURRENTLY IGNORED)
@@ -75,7 +78,7 @@ class Project extends Application {
      * Output the formatted HTML for additional paginated projects in an existing
      * Grid View layout.
      * 
-     * @param int $page the page number of Projects to retrieve
+     * @param int $page the page number of Projects to retrieve (1-n)
      * @param string $filter a tag to filter Projects by        (CURRENTLY IGNORED)
      * @param string $sort a Project attribute to sort by       (CURRENTLY IGNORED)
      * @param string $sortOrder the order to sort by            (CURRENTLY IGNORED)
@@ -88,7 +91,7 @@ class Project extends Application {
      * Output the formatted HTML for additional paginated projects in an existing
      * List View layout.
      * 
-     * @param int $page the page number of Projects to retrieve
+     * @param int $page the page number of Projects to retrieve (1-n)
      * @param string $filter a tag to filter Projects by        (CURRENTLY IGNORED)
      * @param string $sort a Project attribute to sort by       (CURRENTLY IGNORED)
      * @param string $sortOrder the order to sort by            (CURRENTLY IGNORED)
@@ -101,7 +104,7 @@ class Project extends Application {
      * Load paginated Projects as HTML that can be placed in the 'projects_listview' template
      * into data['projects'].
      * 
-     * @param int $page the page number of Projects to retrieve
+     * @param int $page the page number of Projects to retrieve (1-n)
      * @param string $filter a tag to filter Projects by        (CURRENTLY IGNORED)
      * @param string $sort a Project attribute to sort by       (CURRENTLY IGNORED)
      * @param string $sortOrder the order to sort by            (CURRENTLY IGNORED)
@@ -118,7 +121,7 @@ class Project extends Application {
      * Load paginated Projects as HTML that can be placed in the 'projects_gridview' template
      * into data['projects'].
      * 
-     * @param int $page the page number of Projects to retrieve
+     * @param int $page the page number of Projects to retrieve (1-n)
      * @param string $filter a tag to filter Projects by        (CURRENTLY IGNORED)
      * @param string $sort a Project attribute to sort by       (CURRENTLY IGNORED)
      * @param string $sortOrder the order to sort by            (CURRENTLY IGNORED)
