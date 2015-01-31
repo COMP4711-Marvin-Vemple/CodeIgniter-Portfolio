@@ -25,6 +25,7 @@ class Repository extends Application {
      */
     public function index() {
         $this->data['repos'] = $this->repositories->getPaginated(1, Repository::$REPOS_PER_PAGE);
+        $this->generatePaginationInterface();
         $this->data['pagebody'] = Repository::$TEMPLATE_MULTIPLE;
         $this->render();
     }
@@ -36,6 +37,7 @@ class Repository extends Application {
      */
     public function page($page) {
         $this->data['repos'] = $this->repositories->getPaginated($page, Repository::$REPOS_PER_PAGE);
+        $this->generatePaginationInterface();
         $this->data['pagebody'] = Repository::$TEMPLATE_MULTIPLE;
         $this->render();
     }
@@ -49,5 +51,41 @@ class Repository extends Application {
         $this->data['repo'] = $this->repositories->getById($id);
         $this->data['pagebody'] = Repository::$TEMPLATE_SINGLE;
         $this->render();
+    }
+    
+    /**
+     * Generate a Pagination HTML element.
+     * 
+     * Pagination Buttons are templated with _pagination_button
+     * with the variables: "link" and "text". The Pagination element is templated with the variables
+     * "prev" and "next which are the templated buttons, and "currentPage" and "pageCount" which
+     * are integers.
+     * 
+     * If the "prev" or "next" buttons are not required, they are set to empty strings.
+     * 
+     * @param int $pageNumber the current page.
+     */
+    private function generatePaginationInterface($pageNumber) {
+        $pageCount = $this->posts->getPageCount(Repository::$REPOS_PER_PAGE);
+        $paginationData = array();
+        $paginationData['prev'] = '';
+        $paginationData['next'] = '';
+        $pagination['currentPage'] = $pageNumber;
+        $pagination['pageCount'] = $pageCount;
+        
+        // Create "Prev" page link
+        if ($pageNumber > 1) {
+            $btnData = array('link' => '/post/page/' . $pageNumber - 1, 'text' => 'Previous');
+            $paginationData['prev'] = $this->parser->parse('_pagination_button', $btnData, true);
+        }
+        
+        // Create "Next" page link
+        if ($pageNumber < $pageCount) {
+            $btnData = array('link' => '/post/page/' . $pageNumber + 1, 'text' => 'Next');
+            $paginationData['next'] = $this->parser->parse('_pagination_button', $btnData, true);
+        }
+        
+        // Generate Pagination Data
+        $this->data['pagination'] = $this->parser->parse('_pagination', $paginationData, true);
     }
 }

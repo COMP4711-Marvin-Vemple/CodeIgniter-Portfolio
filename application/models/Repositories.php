@@ -47,7 +47,7 @@ class Repositories extends CI_Model {
      */
     public function getPaginated($page, $perPage) {
         $retval = array();
-        $pages = ceil($perPage / count($this->data));
+        $pages = $this->getPageCount($perPage);
         
         if ($page < 1 || $page > $pages)
             return $retval;
@@ -59,5 +59,17 @@ class Repositories extends CI_Model {
         }
         
         return $retval;
+    }
+    
+    /**
+     * Get the number of pages required to show all Repos with the given number of
+     * Repos per page.
+     * 
+     * @param int $perPage the number of repos per page
+     * @return int the number of pages required to show all repos.
+     */
+    public function getPageCount($perPage)
+    {
+        return ceil($perPage / count($this->data));
     }
 }

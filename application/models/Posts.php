@@ -46,7 +46,7 @@ class Posts extends CI_Model {
      */
     public function getPaginated($page, $perPage) {
         $retval = array();
-        $pages = ceil($perPage / count($this->data));
+        $pages = $this->getPageCount($perPage);
         
         if ($page < 1 || $page > $pages)
             return $retval;
@@ -58,5 +58,17 @@ class Posts extends CI_Model {
         }
         
         return $retval;
+    }
+    
+    /**
+     * Get the number of pages required to show all Posts with the given number of
+     * Posts per page.
+     * 
+     * @param int $perPage the number of posts per page
+     * @return int the number of pages required to show all posts.
+     */
+    public function getPageCount($perPage)
+    {
+        return ceil($perPage / count($this->data));
     }
 }
