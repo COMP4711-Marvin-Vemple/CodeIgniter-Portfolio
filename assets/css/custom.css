@@ -35,3 +35,22 @@ and open the template in the editor.
     float:left;
     font-size: 80pt;
 }
+
+#gallery
+{
+    margin-top: 10px;
+    width: 60%;
+    height: 35em;
+}
+
+.carousel img {
+  width: 100%;
+  margin: auto;
+}
+
+footer
+{
+    clear: both;
+    width: 100%;
+    text-align: center;
+}
