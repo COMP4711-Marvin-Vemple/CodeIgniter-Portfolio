@@ -25,7 +25,7 @@ class Post extends Application {
      */
     public function index() {
         $this->data['posts'] = $this->posts->getPaginated(1, Post::$POSTS_PER_PAGE);
-        $this->generatePaginationInterface();
+        $this->generatePaginationInterface(1);
         $this->data['pagebody'] = Post::$TEMPLATE_MULTIPLE;
         $this->render();
     }
@@ -37,7 +37,7 @@ class Post extends Application {
      */
     public function page($page) {
         $this->data['posts'] = $this->posts->getPaginated($page, Post::$POSTS_PER_PAGE);
-        $this->generatePaginationInterface();
+        $this->generatePaginationInterface($page);
         $this->data['pagebody'] = Post::$TEMPLATE_MULTIPLE;
         $this->render();
     }
