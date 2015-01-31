@@ -35,7 +35,7 @@ class Projects extends CI_Model {
      * @return Project data
      */
     public function getById($id) {
-        return $this->data[$id];
+        return array($this->data[$id]);
     }
     
     /**

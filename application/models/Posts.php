@@ -33,7 +33,7 @@ class Posts extends CI_Model {
      * @return Post data
      */
     public function getById($id) {
-        return $this->data[$id];
+        return array($this->data[$id]);
     }
     
     /**

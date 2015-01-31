@@ -34,7 +34,7 @@ class Repositories extends CI_Model {
      * @return Repo data
      */
     public function getById($id) {
-        return $this->data[$id];
+        return array($this->data[$id]);
     }
     
     /**
