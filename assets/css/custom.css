@@ -40,12 +40,16 @@ and open the template in the editor.
 {
     margin-top: 10px;
     width: 60%;
+    float: left;
     height: 35em;
+    margin-bottom: 5em;
 }
 
 .carousel img {
   width: 100%;
   margin: auto;
+  height: 30em;
+  
 }
 
 footer
@@ -53,4 +57,11 @@ footer
     clear: both;
     width: 100%;
     text-align: center;
+}
+
+#blog-preview
+{
+    margin-top: 1em;
+    float: right;
+    width: 35%;
 }

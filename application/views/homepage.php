@@ -22,10 +22,8 @@ Gallery Goes here
     <div class="item active">
       <img src="http://i.imgur.com/3ybSdpe.png" alt="...">
       <div class="carousel-caption">
-        This is a owl
       </div>
     </div>
-    ALL THE TEXT
   </div>
   
     
@@ -45,4 +43,24 @@ Gallery Goes here
 <!--
 Blog posts go here 
 -->
-
+<div id="blog-preview" class="well">
+    {recent_posts}
+    <div class="media">
+        <div class="media-left media-middle">
+            <a href="#">
+                <img class="media-object" src={thumbnail} alt="">
+            </a>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">{title}</h4>
+            {description}
+        </div>
+    </div>
+    <hr>
+    {/recent_posts}
+    <div>
+        
+        
+        
+    </div>
+</div>
