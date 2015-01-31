@@ -38,7 +38,7 @@ class Application extends CI_Controller {
      */
     function render() {
         // Create the Menu Bar
-        $this->data['menubar'] = $this->parser->parse('_menubar', $this->menu, true);
+        $this->data['menubar'] = $this->parser->parse('_menubar', array("menu" => $this->menu), true);
         
         // Load the page content
         $this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
