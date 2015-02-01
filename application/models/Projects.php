@@ -74,7 +74,7 @@ class Projects extends CI_Model {
             return $retval;
         
         $i = ($page * $perPage) - $perPage;
-        while ($i < count($this->data)) {
+        while ($i < count($this->data) && count($retval) < $perPage) {
             $retval[] = $this->data[$i];
             $i++;
         }

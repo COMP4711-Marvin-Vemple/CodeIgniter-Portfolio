@@ -12,7 +12,7 @@ class Repository extends Application {
     /**
      * The number of Repositories to show on a Page.
      */
-    private static $REPOS_PER_PAGE = 15;
+    private static $REPOS_PER_PAGE = 5;
     
     /**
      * The Templates to use for displaying data.
@@ -66,22 +66,22 @@ class Repository extends Application {
      * @param int $pageNumber the current page.
      */
     private function generatePaginationInterface($pageNumber) {
-        $pageCount = $this->posts->getPageCount(Repository::$REPOS_PER_PAGE);
+        $pageCount = $this->repositories->getPageCount(Repository::$REPOS_PER_PAGE);
         $paginationData = array();
         $paginationData['prev'] = '';
         $paginationData['next'] = '';
         $pagination['currentPage'] = $pageNumber;
         $pagination['pageCount'] = $pageCount;
-        
+
         // Create "Prev" page link
         if ($pageNumber > 1) {
-            $btnData = array('link' => '/post/page/' . $pageNumber - 1, 'text' => 'Previous');
+            $btnData = array('link' => '/repository/page/' . ($pageNumber - 1), 'text' => 'Previous');
             $paginationData['prev'] = $this->parser->parse('_pagination_button', $btnData, true);
         }
         
         // Create "Next" page link
         if ($pageNumber < $pageCount) {
-            $btnData = array('link' => '/post/page/' . $pageNumber + 1, 'text' => 'Next');
+            $btnData = array('link' => '/repository/page/' . ($pageNumber + 1), 'text' => 'Next');
             $paginationData['next'] = $this->parser->parse('_pagination_button', $btnData, true);
         }
         

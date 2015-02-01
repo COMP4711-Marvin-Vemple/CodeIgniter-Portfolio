@@ -1,3 +1,4 @@
+<h3>GitHub Repositories</h3>
 <table class="table">
     {repos}
     <tr>
@@ -7,3 +8,4 @@
     </tr>
     {/repos}
 </table>
+{pagination}
