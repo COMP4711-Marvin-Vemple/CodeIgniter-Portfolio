@@ -8,7 +8,7 @@
     </head>
     <body>
         <div id="header" class="container-fluid">
-            <img src="https://avatars1.githubusercontent.com/u/5075697?v=3&s=460" alt="" class="img-circle" id="my-picture">
+            <img src="{logo}" alt="" class="img-circle" id="my-picture">
             <h1>{site_title}</h1>
             
         </div>

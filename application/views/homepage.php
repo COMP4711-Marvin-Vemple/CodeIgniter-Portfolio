@@ -12,11 +12,11 @@ Gallery Goes here
 -->
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
-  <ol class="carousel-indicators">
+  <!--ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
+  </ol-->
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
@@ -61,7 +61,7 @@ Blog posts go here
     <div class="media">
         <div class="media-left media-middle">
             <a href="/post/id/{id}">
-                <img class="media-object" src={thumbnail} alt="no image">
+                <img class="media-object recent-blog-thumb" src={thumbnail} alt="no image">
             </a>
         </div>
         <div class="media-body">
@@ -71,9 +71,4 @@ Blog posts go here
     </div>
     <hr>
     {/recent_posts}
-    <div>
-        
-        
-        
-    </div>
 </div>

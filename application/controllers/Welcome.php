@@ -12,7 +12,7 @@ class Welcome extends Application {
     /**
      * The number of blog posts to show in "Recent Posts"
      */
-    private static $NUM_RECENT_POSTS = 4;
+    private static $NUM_RECENT_POSTS = 5;
     
     /**
      * Controller for "Home" page. Loads "featured" posts
