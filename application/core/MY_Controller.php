@@ -31,6 +31,11 @@ class Application extends CI_Controller {
         parent::__construct();
         $this->data = array();
         $this->load->library('parser');
+        
+        // Set Default Data
+        $this->data['name'] = "Your Name";
+        $this->data['email'] = "you@example.com";
+        $this->data['year'] = date('Y');
     }
 
     /**
@@ -47,5 +52,5 @@ class Application extends CI_Controller {
         $this->data['data'] = &$this->data;
         $this->parser->parse('_template', $this->data);
     }
-
+    
 }
