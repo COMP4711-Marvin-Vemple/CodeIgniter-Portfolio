@@ -2,4 +2,6 @@
     <a href="/project/gridview/1/" type="button" class="btn btn-default"><span class="glyphicon glyphicon-th"></span></a>
   <a type="button" class="btn btn-default active"><span class="glyphicon glyphicon-th-list"></span></a>
 </div>
-{projects}
+<div>
+    {projects}
+</div>

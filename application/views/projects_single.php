@@ -1,11 +1,12 @@
 {project}
 <div class="" id="project-main">
-    <img src={image} alt=""/>
+    <img class="fullsize" src={image} alt=""/>
     <h1>{title}</h1>
-    <time>{data}</time>
-    <div>
+    <time>{date}</time>
+    <p>
         {description}
-    </div>
+    </p>
+    <h4>Sample Source Code</h4>
     <div class="bootstrap-demo">
     <pre>{source}</pre>
 
