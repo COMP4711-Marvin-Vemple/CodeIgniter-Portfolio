@@ -24,6 +24,14 @@ Gallery Goes here
       <div class="carousel-caption">
       </div>
     </div>
+    {featured_projects}
+    <div class="item">
+      <img src={image} alt="...">
+      <div class="carousel-caption">
+        ...
+      </div>
+    </div>
+    {/featured_projects}
   </div>
   
     
