@@ -36,6 +36,7 @@ class Application extends CI_Controller {
         $this->data['name'] = "Your Name";
         $this->data['email'] = "you@example.com";
         $this->data['year'] = date('Y');
+        $this->data['site_title'] = "Your Portfolio";
     }
 
     /**
@@ -43,7 +44,8 @@ class Application extends CI_Controller {
      */
     function render() {
         // Create the Menu Bar
-        $this->data['menubar'] = $this->parser->parse('_menubar', array("menu" => $this->menu), true);
+        $menuData = array('menu' => $this->menu, 'name' => $this->data['name']);
+        $this->data['menubar'] = $this->parser->parse('_menubar', $menuData, true);
         
         // Load the page content
         $this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
