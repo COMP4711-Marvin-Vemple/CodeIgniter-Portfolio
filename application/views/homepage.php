@@ -13,23 +13,20 @@ Gallery Goes here
 <div id="gallery" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#gallery" data-slide-to="0"></li>
+    <li data-target="#gallery" data-slide-to="1"></li>
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-    <div class="item active">
-      <img src="http://i.imgur.com/3ybSdpe.png" alt="...">
-      <div class="carousel-caption">
-      </div>
-    </div>
+    
     {featured_projects}
-    <div class="item">
-      <img src={image} alt="...">
-      <div class="carousel-caption">
-        ...
-      </div>
+    <div class="itemx">
+    <img src="..." alt="...">
+        <div class="carousel-caption">
+            <h3>{title}</h3>
+            <p>...</p>
+        </div>
     </div>
     {/featured_projects}
   </div>
@@ -37,12 +34,12 @@ Gallery Goes here
     
 
   <!-- Controls -->
-  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+  <a class="left carousel-control" href="#gallery" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="false"></span>
     <span class="sr-only">Previous</span>
   </a>
-  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+  <a class="right carousel-control" href="#gallery" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="false"></span>
     <span class="sr-only">Next</span>
   </a>
 </div>
