@@ -114,10 +114,26 @@ article time
 
 #project-sidebar
 {
-    
+    float: left;
+    width: 33%;
 }
 
 #project-main
 {
-    
+    float: left;
+    width: 66%;
+}
+
+#my-picture
+{
+    max-height: 10em;
+    max-width: 10em;
+    float:left;
+    margin: 1em;
+}
+
+#header
+{
+    max-height: 20em;
+    vertical-align: bottom;
 }
