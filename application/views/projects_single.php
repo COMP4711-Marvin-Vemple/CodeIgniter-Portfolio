@@ -1,5 +1,5 @@
 {project}
-<article class="well">
+<div class="">
     <img src={image} alt=""/>
     <h1>{title}</h1>
     <time>{data}</time>
@@ -10,5 +10,8 @@
     <pre>{source}</pre>
 
     </div>
-</article>
+</div>
+<div id="project-sidebar" class="well">
+    
+</div>
 {/project}
