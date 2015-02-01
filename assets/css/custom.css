@@ -65,3 +65,8 @@ footer
     float: right;
     width: 35%;
 }
+
+article time
+{
+    font-style: italic;
+}
