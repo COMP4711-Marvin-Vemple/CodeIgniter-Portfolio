@@ -14,8 +14,8 @@ class Application extends CI_Controller {
     protected $menu = array (
         array('name' => 'Home', 'link' => '/'),
         array('name' => 'Projects', 'link' => '/project'),
-        array('name' => 'Repositories', 'link' => '/repo'),
-        array('name' => 'Blog', 'link' => '/blog'),
+        array('name' => 'Repositories', 'link' => '/repository'),
+        array('name' => 'Blog', 'link' => '/post'),
         array('name' => 'About', 'link' => '/about'),
     );
     

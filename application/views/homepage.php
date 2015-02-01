@@ -24,6 +24,14 @@ Gallery Goes here
       <div class="carousel-caption">
       </div>
     </div>
+    {featured_projects}
+    <div class="item">
+      <img src={image} alt="...">
+      <div class="carousel-caption">
+        ...
+      </div>
+    </div>
+    {/featured_projects}
   </div>
   
     
@@ -47,8 +55,8 @@ Blog posts go here
     {recent_posts}
     <div class="media">
         <div class="media-left media-middle">
-            <a href="#">
-                <img class="media-object" src={thumbnail} alt="">
+            <a href="/post/id/{id}">
+                <img class="media-object" src={thumbnail} alt="no image">
             </a>
         </div>
         <div class="media-body">
