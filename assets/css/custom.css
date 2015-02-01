@@ -36,7 +36,7 @@ and open the template in the editor.
     font-size: 80pt;
 }
 
-#gallery
+#myCarousel
 {
     margin-top: 10px;
     width: 60%;
@@ -46,9 +46,9 @@ and open the template in the editor.
 }
 
 .carousel img {
-  width: 100%;
   margin: auto;
-  height: 30em;
+  max-height: 35em;
+  min-height: 35em;
   
 }
 
