@@ -73,6 +73,7 @@ class Repository extends Application {
         $pagination['currentPage'] = $pageNumber;
         $pagination['pageCount'] = $pageCount;
         
+        var_dump($pageCount);
         // Create "Prev" page link
         if ($pageNumber > 1) {
             $btnData = array('link' => '/repository/page/' . ($pageNumber - 1), 'text' => 'Previous');
