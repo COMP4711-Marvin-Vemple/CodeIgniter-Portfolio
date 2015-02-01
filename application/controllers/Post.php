@@ -12,7 +12,7 @@ class Post extends Application {
     /**
      * The number of Posts to show on a Page.
      */
-    private static $POSTS_PER_PAGE = 15;
+    private static $POSTS_PER_PAGE = 5;
     
     /**
      * The Templates to use for displaying data.
@@ -75,13 +75,13 @@ class Post extends Application {
         
         // Create "Prev" page link
         if ($pageNumber > 1) {
-            $btnData = array('link' => '/post/page/' . $pageNumber - 1, 'text' => 'Previous');
+            $btnData = array('link' => '/post/page/' . ($pageNumber - 1), 'text' => 'Previous');
             $paginationData['prev'] = $this->parser->parse('_pagination_button', $btnData, true);
         }
         
         // Create "Next" page link
         if ($pageNumber < $pageCount) {
-            $btnData = array('link' => '/post/page/' . $pageNumber + 1, 'text' => 'Next');
+            $btnData = array('link' => '/post/page/' . ($pageNumber + 1), 'text' => 'Next');
             $paginationData['next'] = $this->parser->parse('_pagination_button', $btnData, true);
         }
         

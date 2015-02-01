@@ -10,14 +10,14 @@ class Repositories extends CI_Model {
     
     /** BOGUS DATA **/
     var $data = array(
-      array('id' => 0, 'title' => 'Test Repo 1', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'))),
-      array('id' => 1, 'title' => 'Test Repo 2', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'))),
-      array('id' => 2, 'title' => 'Test Repo 3', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'))),
-      array('id' => 3, 'title' => 'Test Repo 4', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'))),
-      array('id' => 4, 'title' => 'Test Repo 5', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'))),
-      array('id' => 5, 'title' => 'Test Repo 6', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'))),
-      array('id' => 6, 'title' => 'Test Repo 7', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'))),
-      array('id' => 7, 'title' => 'Test Repo 8', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'www.google.com')))
+      array('id' => 0, 'title' => 'Test Repo 1', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
+      array('id' => 1, 'title' => 'Test Repo 2', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
+      array('id' => 2, 'title' => 'Test Repo 3', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
+      array('id' => 3, 'title' => 'Test Repo 4', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
+      array('id' => 4, 'title' => 'Test Repo 5', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
+      array('id' => 5, 'title' => 'Test Repo 6', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
+      array('id' => 6, 'title' => 'Test Repo 7', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
+      array('id' => 7, 'title' => 'Test Repo 8', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com')))
     );
     
     /**
@@ -53,7 +53,7 @@ class Repositories extends CI_Model {
             return $retval;
         
         $i = ($page * $perPage) - $perPage;
-        while ($i < count($this->data)) {
+        while ($i < count($this->data) && count($retval) < $perPage) {
             $retval[] = $this->data[$i];
             $i++;
         }
@@ -70,6 +70,6 @@ class Repositories extends CI_Model {
      */
     public function getPageCount($perPage)
     {
-        return ceil($perPage / count($this->data));
+        return ceil($perPage / count($this->data)) + 1;
     }
 }

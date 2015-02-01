@@ -36,7 +36,7 @@ and open the template in the editor.
     font-size: 80pt;
 }
 
-#gallery
+#myCarousel
 {
     margin-top: 10px;
     width: 60%;
@@ -46,9 +46,9 @@ and open the template in the editor.
 }
 
 .carousel img {
-  width: 100%;
   margin: auto;
-  height: 30em;
+  max-height: 35em;
+  min-height: 35em;
   
 }
 
@@ -64,4 +64,75 @@ footer
     margin-top: 1em;
     float: right;
     width: 35%;
+}
+
+article time
+{
+    font-style: italic;
+}
+
+#mode-toggle
+{
+    float: right;
+    width: 98%;
+    text-align: right;
+    margin-bottom: 1em;
+    margin-left: 90%;
+}
+
+.list-view
+{
+    border: #eee solid 1px;
+    margin: 5%;
+}
+
+.list-view .caption
+{
+    height: 100%;
+    float:left;
+}
+
+.list-view img
+{
+    float:left;
+    margin: 0;
+    margin-right: 5%;
+    margin: 1em;
+    width: 15em;
+}
+
+.list-view{
+    clear:both;
+}
+
+.list-view a
+{
+    position: relative;
+    bottom: 0;
+}
+
+#project-sidebar
+{
+    float: left;
+    width: 33%;
+}
+
+#project-main
+{
+    float: left;
+    width: 66%;
+}
+
+#my-picture
+{
+    max-height: 10em;
+    max-width: 10em;
+    float:left;
+    margin: 1em;
+}
+
+#header
+{
+    max-height: 20em;
+    vertical-align: bottom;
 }
