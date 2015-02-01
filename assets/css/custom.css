@@ -12,7 +12,7 @@ and open the template in the editor.
 {
     color: white;
     background-color:#4986E7;
-    height: 10em;
+    height: 8em;
     width: 100%;
     margin-left:auto;
     margin-right:auto;
@@ -22,18 +22,19 @@ and open the template in the editor.
 #welcome-flair #lhs
 {
     text-align: right;
-    width: 50%;
+    vertical-align: middle;
+    width: 48%;
     height: 100%;
     float:left;
-    font-size: 80pt;
+    font-size: 60pt;
 }
 #welcome-flair #rhs
 {
     width: 50%;
     height: 100%;
     text-alight:left;
-    float:left;
-    font-size: 80pt;
+    float:right;
+    font-size: 60pt;
 }
 
 #myCarousel
@@ -64,6 +65,17 @@ footer
     margin-top: 1em;
     float: right;
     width: 35%;
+}
+
+.post-details
+{
+    display: inline-block;
+    margin-left: 1em;
+}
+
+img.fullsize
+{
+    width: 100%;
 }
 
 article time
@@ -98,7 +110,7 @@ article time
     margin: 0;
     margin-right: 5%;
     margin: 1em;
-    width: 15em;
+    width: 10em;
 }
 
 .list-view{
@@ -113,8 +125,8 @@ article time
 
 #project-sidebar
 {
-    float: left;
-    width: 33%;
+    float: right;
+    width: 30%;
 }
 
 #project-main
@@ -135,4 +147,14 @@ article time
 {
     max-height: 20em;
     vertical-align: bottom;
+}
+
+#header h1
+{
+    margin-top: 2em;
+}
+
+img.recent-blog-thumb
+{
+    width: 7em;
 }
