@@ -1,4 +1,4 @@
-<div id="pagination">
-    <span class="prev">{prev}</span>
-    <span class="next">{next}</span>
+<div id="pagination" class="well clearfix">
+    <span class="pull-left">{prev}</span>
+    <span class="pull-right">{next}</span>
 </div>
