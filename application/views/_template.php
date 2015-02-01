@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <Title>{name}</Title>
+        <Title>{site_title}</Title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="/assets/css/custom.css"
@@ -9,7 +9,7 @@
     <body>
         <div id="header" class="container-fluid">
             <img>
-            <h1>{Name}</h1>
+            <h1>{site_title}</h1>
             {menubar}
         </div>
         <div class="container">
