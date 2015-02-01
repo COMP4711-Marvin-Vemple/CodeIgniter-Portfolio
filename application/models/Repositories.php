@@ -70,6 +70,6 @@ class Repositories extends CI_Model {
      */
     public function getPageCount($perPage)
     {
-        return ceil($perPage / count($this->data)) + 1;
+        return ceil(count($this->data) / $perPage);
     }
 }
