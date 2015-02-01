@@ -2,6 +2,7 @@
     {repo}
     <h1>{title}</h1>
     <p>{description}</p>
+    <h3>Recent Commit History</h3>
     <table class="table">
         <tr>
             <th>Message</th>
