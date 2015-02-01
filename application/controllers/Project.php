@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Welcome is the Controller that is executed by accessing "/project". It allows the user to
+ * index is the Controller that is executed by accessing "/project". It allows the user to
  * view paginated projects in either a list or grid view. It also allows a single project to
  * be loaded by accessing it with it's ID.
  * 
