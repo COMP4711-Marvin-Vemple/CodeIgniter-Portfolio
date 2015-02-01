@@ -53,7 +53,7 @@ class Repositories extends CI_Model {
             return $retval;
         
         $i = ($page * $perPage) - $perPage;
-        while ($i < count($this->data)) {
+        while ($i < count($this->data) && count($retval) < $perPage) {
             $retval[] = $this->data[$i];
             $i++;
         }
@@ -70,6 +70,6 @@ class Repositories extends CI_Model {
      */
     public function getPageCount($perPage)
     {
-        return ceil($perPage / count($this->data));
+        return ceil($perPage / count($this->data)) + 1;
     }
 }
