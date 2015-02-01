@@ -79,3 +79,35 @@ article time
     margin-bottom: 1em;
     margin-left: 90%;
 }
+
+.list-view
+{
+    border: #eee solid 1px;
+    margin: 5%;
+}
+
+.list-view .caption
+{
+    height: 100%;
+    float:left;
+}
+
+.list-view img
+{
+    float:left;
+    margin: 0;
+    height:15em;
+    margin-right: 5%;
+    margin: 1em;
+    width: 15em;
+}
+
+.list-view{
+    clear:both;
+}
+
+.list-view a
+{
+    position: relative;
+    bottom: 0;
+}

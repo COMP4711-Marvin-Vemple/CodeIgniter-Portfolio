@@ -10,7 +10,7 @@ class Projects extends CI_Model {
     
     /** BOGUS DATA **/
     var $data = array(
-      array('id' => 1, 'featured' => 'true', 'title' => 'Test Project 1', 'description' => 'This is the description', 'image' => 'http://i.imgur.com/Auazt4a.gif', 'thumbnail' => 'thumb.png', 'data' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'www.google.com', 'demo' => 'www.google.com', 'tags' => array('html', 'php')),
+      array('id' => 1, 'featured' => 'true', 'title' => 'Test Project 1', 'description' => 'This is the description', 'image' => 'http://i.imgur.com/Auazt4a.gif', 'thumbnail' => 'http://i.imgur.com/VoEc0cm.jpg', 'data' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'www.google.com', 'demo' => 'www.google.com', 'tags' => array('html', 'php')),
       array('id' => 2, 'featured' => 'true', 'title' => 'Test Project 2', 'description' => 'This is the description', 'image' => 'http://i.imgur.com/3ybSdpe.png', 'thumbnail' => 'thumb.png', 'data' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'www.google.com', 'demo' => 'www.google.com', 'tags' => array('html', 'php')),
       array('id' => 3, 'featured' => 'false', 'title' => 'Test Project 3', 'description' => 'This is the description', 'image' => 'project.png', 'thumbnail' => 'thumb.png', 'data' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'www.google.com', 'demo' => 'www.google.com', 'tags' => array('html', 'php')),
       array('id' => 4, 'featured' => 'false', 'title' => 'Test Project 4', 'description' => 'This is the description', 'image' => 'project.png', 'thumbnail' => 'thumb.png', 'data' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'www.google.com', 'demo' => 'www.google.com', 'tags' => array('html', 'php')),
