@@ -10,13 +10,13 @@ class Posts extends CI_Model {
     
     /** BOGUS DATA **/
     var $data = array(
-      array('id' => 0, 'title' => 'Test Post 1', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'post.png', 'thumbnail' => 'thumb.png', 'data' => 'Jan 1, 1970'),
-      array('id' => 1, 'title' => 'Test Post 2', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'post.png', 'thumbnail' => 'thumb.png', 'data' => 'Jan 1, 1970'),
-      array('id' => 2, 'title' => 'Test Post 3', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'post.png', 'thumbnail' => 'thumb.png', 'data' => 'Jan 1, 1970'),
-      array('id' => 3, 'title' => 'Test Post 4', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'post.png', 'thumbnail' => 'thumb.png', 'data' => 'Jan 1, 1970'),
-      array('id' => 4, 'title' => 'Test Post 5', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'post.png', 'thumbnail' => 'thumb.png', 'data' => 'Jan 1, 1970'),
-      array('id' => 5, 'title' => 'Test Post 6', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'post.png', 'thumbnail' => 'thumb.png', 'data' => 'Jan 1, 1970'),
-      array('id' => 6, 'title' => 'Test Post 7', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'post.png', 'thumbnail' => 'thumb.png', 'data' => 'Jan 1, 1970'),
+      array('id' => 0, 'title' => 'Test Post 1', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
+      array('id' => 1, 'title' => 'Test Post 2', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
+      array('id' => 2, 'title' => 'Test Post 3', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
+      array('id' => 3, 'title' => 'Test Post 4', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
+      array('id' => 4, 'title' => 'Test Post 5', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
+      array('id' => 5, 'title' => 'Test Post 6', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
+      array('id' => 6, 'title' => 'Test Post 7', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
     );
     
     /**
