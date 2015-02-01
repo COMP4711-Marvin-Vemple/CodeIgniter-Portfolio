@@ -57,7 +57,7 @@ Blog posts go here
             </a>
         </div>
         <div class="media-body">
-            <h4 class="media-heading">{title}</h4>
+            <h4 class="media-heading"><a href="/post/id/{id}">{title}</a></h4>
             {description}
         </div>
     </div>
