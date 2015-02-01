@@ -4,7 +4,7 @@
       <img src={thumbnail} alt="...">
       <div class="caption">
         <h3>{title}</h3>
-        <em>{data}</em>
+        <em>{date}</em>
         <p>{description}</p>
         <p><a href="/project/id/{id}" class="btn btn-primary" role="button">See More</a></p>
       </div>

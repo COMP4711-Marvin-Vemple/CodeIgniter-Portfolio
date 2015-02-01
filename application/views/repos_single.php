@@ -7,13 +7,13 @@
         <tr>
             <th>Message</th>
             <th>Date</th>
-            <th>View</th>
+            <th><span class="pull-right">View</span></th>
         </tr>
         {commits}
         <tr>
             <td>{message}</td>
             <td>{date}</td>
-            <td><a class="btn btn-primary" href={url}>View Commit</a></td>
+            <td><a class="btn btn-primary pull-right" href={url}>View Commit</a></td>
         </tr>
         {/commits}
     </table>

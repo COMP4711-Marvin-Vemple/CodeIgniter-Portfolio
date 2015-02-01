@@ -37,6 +37,7 @@ class Application extends CI_Controller {
         $this->data['email'] = "you@example.com";
         $this->data['year'] = date('Y');
         $this->data['site_title'] = "Your Portfolio";
+        $this->data['logo'] = 'https://avatars1.githubusercontent.com/u/5075697?v=3&s=460';
     }
 
     /**
