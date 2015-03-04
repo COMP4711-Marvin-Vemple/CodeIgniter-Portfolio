@@ -19,6 +19,13 @@ class Application extends CI_Controller {
         array('name' => 'About', 'link' => '/about'),
     );
     
+    protected $adminMenu = array (
+        array('name' => 'Projects', 'link' => '/Admin/Project'),
+        array('name' => 'GitHub', 'link' => '/Admin/GitHub'),
+        array('name' => 'Posts', 'link' => '/Admin/Post'),
+        array('name' => 'About', 'link' => '/Admin/About')
+    );
+    
     /**
      * $data is an array to hold view template parameters in.
      */
@@ -38,12 +45,23 @@ class Application extends CI_Controller {
         $this->data['year'] = date('Y');
         $this->data['site_title'] = "Your Portfolio";
         $this->data['logo'] = 'https://avatars1.githubusercontent.com/u/5075697?v=3&s=460';
+        $this->data['mode'] = 'frontpage';
     }
 
     /**
      * Render this page
      */
     function render() {
+        if ($this->data['mode'] === 'admin') {
+            $this->renderAdmin();
+        }
+        else if ($this->data['mode'] === 'frontpage') {
+            $this->renderFront();
+        }
+    }
+    
+    
+    function renderFront() {
         // Create the Menu Bar
         $menuData = array('menu' => $this->menu, 'name' => $this->data['name']);
         $this->data['menubar'] = $this->parser->parse('_menubar', $menuData, true);
@@ -56,4 +74,16 @@ class Application extends CI_Controller {
         $this->parser->parse('_template', $this->data);
     }
     
+    function renderAdmin() {
+        // Create the Menu Bar
+        $menuData = array('menu' => $this->adminMenu);
+        $this->data['menubar'] = $this->parser->parse('_menubar', $menuData, true);
+        
+        // Load the page content
+        $this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
+
+        // Render the Page
+        $this->data['data'] = &$this->data;
+        $this->parser->parse('admin/_template', $this->data);
+    }
 }
