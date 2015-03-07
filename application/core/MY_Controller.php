@@ -49,6 +49,7 @@ class Application extends CI_Controller {
         
         $this->data['styles'] = array();
         $this->data['scripts'] = array();
+        $this->data['components'] = array();
     }
 
     /**
