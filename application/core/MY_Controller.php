@@ -46,6 +46,10 @@ class Application extends CI_Controller {
         $this->data['site_title'] = "Your Portfolio";
         $this->data['logo'] = 'https://avatars1.githubusercontent.com/u/5075697?v=3&s=460';
         $this->data['mode'] = 'frontpage';
+        
+        $this->data['caboose_styles'] = $this->caboose->styles();
+        $this->data['caboose_scripts'] = $this->caboose->scripts();
+        $this->data['caboose_trailings'] = $this->caboose->trailings();
     }
 
     /**
