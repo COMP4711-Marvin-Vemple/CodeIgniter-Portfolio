@@ -19,6 +19,8 @@ class Welcome extends Application {
      * and recent blog posts.
      */
     public function index() {
+        $this->data['scripts'][] = array( 'script' => '/assets/js/banner.js');
+        
         $featured_projects = $this->projects->getFeatured();
         $this->data['first_featured_project'] = array();
         
