@@ -15,7 +15,7 @@ class Project extends Application {
     /**
      * The number of Projects to show on a Page.
      */
-    private static $NUM_PROJECTS_PER_PAGE = 2;
+    private static $NUM_PROJECTS_PER_PAGE = 10;
     
     /**
      * Templates used for displaying data.
@@ -27,12 +27,16 @@ class Project extends Application {
     private static $TEMPLATE_SINGLE             = 'projects_single';
     
     /**
+     * Filter Arrays for Sorting
+     */
+    private static $SORT_PARAMS = array('title', 'date');
+    private static $SORT_ORDER_PARAMS = array('asc', 'desc');
+    
+    /**
      * Controller for default "/project" page. Shows the first page of projects in a grid view.
      */
     public function index() {
-        $this->loadGridView(1);
-        $this->data['pagebody'] = Project::$TEMPLATE_GRIDVIEW;
-        $this->render();
+        $this->gridview(1);
     }
     
     /**
@@ -44,7 +48,16 @@ class Project extends Application {
      * @param string $filter a tag to filter Projects by
      */
     public function gridview($page, $sort='title', $sortOrder='asc', $filter='') {
+        $this->data['page'] = $page;
+        $this->data['sort'] = $sort;
+        $this->data['sortOrder'] = $sortOrder;
+        $this->data['filter'] = $filter;
+        $this->data['viewmode'] = 'gridview';
+        
         $this->loadGridView($page, $filter, $sort, $sortOrder);
+        $this->constructTagFilterList($filter);
+        $this->constructSortFilters();
+        $this->data['toolbar'] = $this->parser->parse('projects_toolbar', $this->data, true);
         $this->data['pagebody'] = Project::$TEMPLATE_GRIDVIEW;
         $this->render();
     }
@@ -58,7 +71,16 @@ class Project extends Application {
      * @param string $filter a tag to filter Projects by
      */
     public function listview($page, $sort='title', $sortOrder='asc', $filter='') {
+        $this->data['page'] = $page;
+        $this->data['sort'] = $sort;
+        $this->data['sortOrder'] = $sortOrder;
+        $this->data['filter'] = $filter;
+        $this->data['viewmode'] = 'listview';
+        
         $this->loadListView($page, $filter, $sort, $sortOrder);
+        $this->constructTagFilterList($filter);
+        $this->constructSortFilters();
+        $this->data['toolbar'] = $this->parser->parse('projects_toolbar', $this->data, true);
         $this->data['pagebody'] = Project::$TEMPLATE_LISTVIEW;
         $this->render();
     }
@@ -163,5 +185,85 @@ class Project extends Application {
         $this->data['project'][0]['github_container'] = [];
         if ($this->data['project'][0]['github'] != '')
             $this->data['project'][0]['github_container'][] = array('github' => $this->data['project'][0]['github']);
+    }
+    
+    /**
+     * Populate $this->data['tags'] with all tags with the active tag first in the list.
+     * 
+     * @param string $activeFilter the active filter ('' if no active filter).
+     */
+    private function constructTagFilterList($activeFilter='') {
+        $tags = $this->tags->getAll();
+        $retval = array();
+        
+        // Set the active tag to the active filter or "All"
+        if ($activeFilter != '') {
+            $this->data['activeTag'] = $activeFilter;
+            
+            $tagData = array();
+            $tagData['tag'] = 'All';
+            $tagData['page'] = $this->data['page'];
+            $tagData['sort'] = $this->data['sort'];
+            $tagData['sortOrder'] = $this->data['sortOrder'];
+            $tagData['filter'] = '';
+            $tagData['viewmode'] = $this->data['viewmode'];
+
+            $retval[] = $tagData;
+        }
+        else {
+            $this->data['activeTag'] = 'All';
+        }
+        
+        // Add all tags to the list (except the active filter)
+        foreach ($tags as $tag) {
+            if ($tag->tag != $activeFilter) {
+                $tagData = array();
+                $tagData['tag'] = $tag->tag;
+                $tagData['page'] = $this->data['page'];
+                $tagData['sort'] = $this->data['sort'];
+                $tagData['sortOrder'] = $this->data['sortOrder'];
+                $tagData['filter'] = $tag->tag;
+                $tagData['viewmode'] = $this->data['viewmode'];
+                
+                $retval[] = $tagData;
+            }
+        }
+        
+        $this->data['tags'] = $retval;
+    }
+    
+    /**
+     * Build sort parameter list for sortable parameters.
+     * Store arrays in $this->data['projects']['sortList'] and $this->data['projects']['sortOrderList']
+     */
+    private function constructSortFilters() {
+        $this->data['sortList'] = array();
+        $this->data['sortOrderList'] = array();
+        
+        // Build sort filter
+        foreach(Project::$SORT_PARAMS as $param) {
+            if ($param != $this->data['sort']) {
+                $data = array();
+                $data['value'] = $param;
+                $data['sortOrder'] = $this->data['sortOrder'];
+                $data['filter'] = $this->data['filter'];
+                $data['viewmode'] = $this->data['viewmode'];
+                
+                $this->data['sortList'][] = $data;
+            }
+        }
+        
+        // Build sort order filter
+        foreach(Project::$SORT_ORDER_PARAMS as $param) {
+            if ($param != $this->data['sortOrder']) {
+                $data = array();
+                $data['value'] = $param;
+                $data['sort'] = $this->data['sort'];
+                $data['filter'] = $this->data['filter'];
+                $data['viewmode'] = $this->data['viewmode'];
+                
+                $this->data['sortOrderList'][] = $data;
+            }
+        }
     }
 }
