@@ -14,6 +14,10 @@ class About extends Application {
     public function index() {
         $this->data['mode'] = 'admin';
         $this->data['pagebody'] = 'admin/about';
+        
+        // Load current contents of about page into template var 'about'
+        $this->data['about'] = file_get_contents('application\views\about.php');
+        
         $this->render();
     }
 }

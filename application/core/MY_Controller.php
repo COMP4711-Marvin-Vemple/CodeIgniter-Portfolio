@@ -52,36 +52,13 @@ class Application extends CI_Controller {
      * Render this page
      */
     function render() {
-        if ($this->data['mode'] === 'admin') {
-            $this->renderAdmin();
-        }
-        else if ($this->data['mode'] === 'frontpage') {
-            $this->renderFront();
-        }
-    }
-    
-    /**
-     * Render the Front-User view
-     */
-    function renderFront() {
-        // Create the Menu Bar
-        $menuData = array('menu' => $this->menu, 'name' => $this->data['name']);
-        $this->data['menubar'] = $this->parser->parse('_menubar', $menuData, true);
+        // Select the Front or Admin Menu
+        $activeMenu = $this->menu;
+        if ($this->data['mode'] == 'admin')
+            $activeMenu = $this->adminMenu;
         
-        // Load the page content
-        $this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
-
-        // Render the Page
-        $this->data['data'] = &$this->data;
-        $this->parser->parse('_template', $this->data);
-    }
-    
-    /**
-     * Render the Admin Panel view
-     */
-    function renderAdmin() {
         // Create the Menu Bar
-        $menuData = array('menu' => $this->adminMenu);
+        $menuData = array('menu' => $activeMenu, 'name' => $this->data['name']);
         $this->data['menubar'] = $this->parser->parse('_menubar', $menuData, true);
         
         // Load the page content
