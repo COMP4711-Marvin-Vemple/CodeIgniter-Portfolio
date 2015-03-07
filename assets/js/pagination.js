@@ -34,7 +34,6 @@ function Paginate()
             {
                 $.post( p + "/page/" + page_id++, function(result){$console.log(result);} );
             }
-            p = 0;
         }
     });
     
