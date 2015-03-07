@@ -8,22 +8,38 @@
  */
 class Posts extends CI_Model {
     
-    /** BOGUS DATA **/
-    var $data = array(
-      array('id' => 0, 'title' => 'Test Post 1', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
-      array('id' => 1, 'title' => 'Test Post 2', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
-      array('id' => 2, 'title' => 'Test Post 3', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
-      array('id' => 3, 'title' => 'Test Post 4', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
-      array('id' => 4, 'title' => 'Test Post 5', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
-      array('id' => 5, 'title' => 'Test Post 6', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
-      array('id' => 6, 'title' => 'Test Post 7', 'description' => 'This is the description', 'content'=>'This is the blog post', 'image' => 'http://cdn.jaintechnosoft.com/wp-content/uploads/Get-Better-Ranking-For-Your-Blog.jpg', 'thumbnail' => 'http://wrightresult.com/wp-content/uploads/wordpress-logo-cristal_thumbnail-300x300.jpg', 'date' => 'Jan 1, 1970'),
-    );
-    
     /**
      * Construct the base CI_Model
      */
     public function __construct() {
         parent::__construct();
+    }
+    
+    public function create($title, $description, $content, $image, $thumbnail, $date) {
+        $data = array (
+          'title'       => $title,
+          'description' => $description,
+          'content'     => $content,
+          'image'       => $image,
+          'thumbnail'   => $thumbnail,
+          'date'        => $date
+        );
+        
+        $this->db->insert('posts', $data);
+    }
+    
+    public function edit($id, $description, $content, $image, $thumbnail, $date) {
+        $data = array (
+          'title'       => $title,
+          'description' => $description,
+          'content'     => $content,
+          'image'       => $image,
+          'thumbnail'   => $thumbnail,
+          'date'        => $date
+        );
+        
+        $this->db->where('id', $id);
+        $this->db->update('posts', $data);
     }
     
     /**
@@ -33,7 +49,8 @@ class Posts extends CI_Model {
      * @return Post data
      */
     public function getById($id) {
-        return array($this->data[$id]);
+        $this->db->where('id', $id);
+        return (array) $this->db->get('posts')->row();
     }
     
     /**
@@ -45,19 +62,10 @@ class Posts extends CI_Model {
      * @return Post data
      */
     public function getPaginated($page, $perPage) {
-        $retval = array();
-        $pages = $this->getPageCount($perPage);
+        $this->db->limit($perPage, ($page * $perPage) - $perPage);
+        $data = $this->db->get('posts')->result();
         
-        if ($page < 1 || $page > $pages)
-            return $retval;
-        
-        $i = ($page * $perPage) - $perPage;
-        while ($i < count($this->data) && count($retval) < $perPage) {
-            $retval[] = $this->data[$i];
-            $i++;
-        }
-        
-        return $retval;
+        return (array) $data;
     }
     
     /**
@@ -69,6 +77,6 @@ class Posts extends CI_Model {
      */
     public function getPageCount($perPage)
     {
-        return ceil(count($this->data) / $perPage);
+        return ceil($this->db->count_all('posts') / $perPage);
     }
 }

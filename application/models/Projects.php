@@ -1,3 +1,4 @@
+
 <?php
 
 /**
@@ -8,23 +9,27 @@
  */
 class Projects extends CI_Model {
     
-    /** BOGUS DATA **/
-    var $data = array(
-      array('id' => 0, 'featured' => 'true', 'title' => 'Test Project 1', 'description' => 'This is the description', 'image' => 'http://i.imgur.com/Auazt4a.gif', 'thumbnail' => 'http://get-commercial.com/3DGridEffect/img/4.png', 'date' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'http://www.google.com', 'demo' => 'http://www.google.com', 'tags' => array('html', 'php')),
-      array('id' => 1, 'featured' => 'true', 'title' => 'Test Project 2', 'description' => 'This is the description', 'image' => 'http://i.imgur.com/3ybSdpe.png', 'thumbnail' => 'http://get-commercial.com/3DGridEffect/img/4.png', 'date' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'http://www.google.com', 'demo' => 'http://www.google.com', 'tags' => array('html', 'php')),
-      array('id' => 2, 'featured' => 'false', 'title' => 'Test Project 3', 'description' => 'This is the description', 'image' => 'http://www.humber.ca/classroomredesign/images/planning-progress/01.jpg', 'thumbnail' => 'http://get-commercial.com/3DGridEffect/img/4.png', 'date' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'http://www.google.com', 'demo' => 'http://www.google.com', 'tags' => array('html', 'php')),
-      array('id' => 3, 'featured' => 'false', 'title' => 'Test Project 4', 'description' => 'This is the description', 'image' => 'http://www.humber.ca/classroomredesign/images/planning-progress/01.jpg', 'thumbnail' => 'http://get-commercial.com/3DGridEffect/img/4.png', 'date' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'http://www.google.com', 'demo' => 'http://www.google.com', 'tags' => array('html', 'php')),
-      array('id' => 4, 'featured' => 'false', 'title' => 'Test Project 5', 'description' => 'This is the description', 'image' => 'http://www.humber.ca/classroomredesign/images/planning-progress/01.jpg', 'thumbnail' => 'http://get-commercial.com/3DGridEffect/img/4.png', 'date' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'http://www.google.com', 'demo' => 'http://www.google.com', 'tags' => array('html', 'php')),
-      array('id' => 5, 'featured' => 'true', 'title' => 'Test Project 6', 'description' => 'This is the description', 'image' => 'http://i.imgur.com/T5bnl0F.jpg', 'thumbnail' => 'http://get-commercial.com/3DGridEffect/img/4.png', 'date' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'http://www.google.com', 'demo' => 'http://www.google.com', 'tags' => array('html', 'php')),
-      array('id' => 6, 'featured' => 'false', 'title' => 'Test Project 7', 'description' => 'This is the description', 'image' => 'http://www.humber.ca/classroomredesign/images/planning-progress/01.jpg', 'thumbnail' => 'http://get-commercial.com/3DGridEffect/img/4.png', 'date' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'http://www.google.com', 'demo' => 'http://www.google.com', 'tags' => array('html', 'php')),
-      array('id' => 7, 'featured' => 'false', 'title' => 'Test Project 8', 'description' => 'This is the description', 'image' => 'http://www.humber.ca/classroomredesign/images/planning-progress/01.jpg', 'thumbnail' => 'http://get-commercial.com/3DGridEffect/img/4.png', 'date' => 'Jan 1, 1970', 'source' => 'test_code', 'github' => 'http://www.google.com', 'demo' => 'http://www.google.com', 'tags' => array('html', 'php')),
-    );
-    
     /**
      * Construct the base CI_Model
      */
     public function __construct() {
         parent::__construct();
+    }
+    
+    public function create($title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $tags, $images) {
+        
+    }
+    
+    public function edit($id, $title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $tags, $images) {
+        
+    }
+    
+    public function delete($id) {
+        $this->db->where('id', $id);
+        $this->db->delete('projects');
+        
+        $this->images->unsetImages($id);
+        $this->tags->unsetTags($id);
     }
     
     /**
@@ -35,7 +40,14 @@ class Projects extends CI_Model {
      * @return Project data
      */
     public function getById($id) {
-        return array($this->data[$id]);
+        $this->db->select('*');
+        $this->db->from('projects');
+        $this->db->where('id', $id);
+
+        $data = (array) $this->db->get()->row();
+        $data = $this->compileArrayData(array($data));
+        
+        return $data;
     }
     
     /**
@@ -45,13 +57,14 @@ class Projects extends CI_Model {
      * @return Project data
      */
     public function getFeatured() {
-        $retval = array();
+        $this->db->select('*');
+        $this->db->from('projects');
+        $this->db->where('featured', 't');
         
-        foreach ($this->data as $project)
-            if ($project['featured'] === 'true')
-                $retval[] = $project;
-            
-        return $retval;
+        $data = (array) $this->db->get()->result();
+        $data = $this->compileArrayData($data);
+        
+        return $data;
     }
     
     /**
@@ -61,22 +74,48 @@ class Projects extends CI_Model {
      * 
      * @param int $page the Page number (1-n) inclusive.
      * @param int $perPage the number of Projects to return per page.
-     * @param string $filter a tag to filter (CURRENTLY IGNORED)
-     * @param string $sort a parameter to sort by (CURRENTLY IGNORED)
-     * @param string $sortOrder the order in which Projects are sorted (CURRENTLY IGNORED)
+     * @param string $filter a tag to filter
+     * @param string $sort a parameter to sort by
+     * @param string $sortOrder the order in which Projects are sorted
      * @return Project data
      */
     public function getPaginated($page, $perPage, $filter='', $sort='title', $sortOrder='asc') {
+        // Set the filter if the filter has been set
+        if ($filter != '')
+        {
+            echo "FILTER: " . $filter . "<br/>";
+            $this->db->join('tags', 'projects.id=tags.project', 'left');
+            $this->db->where('tags.tag', $filter);
+            $this->db->group_by('projects.id');
+        }
+        
+        // Build the Query
+        $this->db->select('*');
+        $this->db->from('projects');
+        $this->db->order_by($sort, $sortOrder);
+        $this->db->limit($perPage, ($page * $perPage) - $perPage);
+        
+        // Get the Data
+        $data = (array) $this->db->get()->result();
+        $data = $this->compileArrayData($data);
+        
+        return $data;
+    }
+    
+    /**
+     * Pack retreived tags and images into returned project data sets.
+     * 
+     * @param mixed $sqlResults sql results from requesting projects
+     * @return mixed repacked project data with images and tags
+     */
+    private function compileArrayData($sqlResults) {
         $retval = array();
-        $pages = ceil($perPage / count($this->data));
         
-        if ($page < 1 || $page > $pages)
-            return $retval;
-        
-        $i = ($page * $perPage) - $perPage;
-        while ($i < count($this->data) && count($retval) < $perPage) {
-            $retval[] = $this->data[$i];
-            $i++;
+        foreach ($sqlResults as $result) {
+            $result = (array) $result;
+            $result['images'] = $this->images->getByProject($result['id']);
+            $result['tags'] = $this->tags->getByProject($result['id']);
+            $retval[] = $result;
         }
         
         return $retval;

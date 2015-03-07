@@ -60,7 +60,9 @@ class Application extends CI_Controller {
         }
     }
     
-    
+    /**
+     * Render the Front-User view
+     */
     function renderFront() {
         // Create the Menu Bar
         $menuData = array('menu' => $this->menu, 'name' => $this->data['name']);
@@ -74,6 +76,9 @@ class Application extends CI_Controller {
         $this->parser->parse('_template', $this->data);
     }
     
+    /**
+     * Render the Admin Panel view
+     */
     function renderAdmin() {
         // Create the Menu Bar
         $menuData = array('menu' => $this->adminMenu);
@@ -84,6 +89,6 @@ class Application extends CI_Controller {
 
         // Render the Page
         $this->data['data'] = &$this->data;
-        $this->parser->parse('admin/_template', $this->data);
+        $this->parser->parse('_template', $this->data);
     }
 }
