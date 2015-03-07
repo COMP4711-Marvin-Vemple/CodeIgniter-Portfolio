@@ -68,20 +68,4 @@ class Application extends CI_Controller {
         $this->data['data'] = &$this->data;
         $this->parser->parse('_template', $this->data);
     }
-    
-    /**
-     * Render the Front-User view
-     */
-    function renderFront() {
-        // Create the Menu Bar
-        $menuData = array('menu' => $this->menu, 'name' => $this->data['name']);
-        $this->data['menubar'] = $this->parser->parse('_menubar', $menuData, true);
-        
-        // Load the page content
-        $this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
-
-        // Render the Page
-        $this->data['data'] = &$this->data;
-        $this->parser->parse('_template', $this->data);
-    }
 }
