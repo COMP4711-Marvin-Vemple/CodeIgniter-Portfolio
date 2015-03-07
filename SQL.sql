@@ -42,5 +42,7 @@ CREATE TABLE IF NOT EXISTS ci_portfolio.tags (
 );
 
 /* Database Modifications */
+ALTER TABLE ci_portfolio.images
+    ADD thumbnail VARCHAR(255) AFTER filename;
 
 /* Populate with Test Data */

@@ -46,6 +46,10 @@ class Application extends CI_Controller {
         $this->data['site_title'] = "Your Portfolio";
         $this->data['logo'] = 'https://avatars1.githubusercontent.com/u/5075697?v=3&s=460';
         $this->data['mode'] = 'frontpage';
+        
+        $this->data['styles'] = array();
+        $this->data['scripts'] = array();
+        $this->data['components'] = array();
     }
 
     /**

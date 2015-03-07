@@ -139,6 +139,20 @@ article time
     width: 66%;
 }
 
+#image-gallery
+{
+    width: 100%;
+}
+
+#image-gallery img
+{
+    max-width: 150px;
+    max-height: 100px;
+    padding: 2px;
+    margin: 2px;
+    border: 1px solid #ddd;
+}
+
 #my-picture
 {
     max-height: 10em;

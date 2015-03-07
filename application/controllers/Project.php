@@ -94,6 +94,10 @@ class Project extends Application {
         $this->data['project'] = $this->projects->getById($id);
         $this->hideEmptyFields();
         $this->data['pagebody'] = Project::$TEMPLATE_SINGLE;
+        
+        $this->data['styles'][] = array('style' => '/assets/css/lightbox.css');
+        $this->data['scripts'][] = array('script' => '/assets/js/lightbox.min.js');
+        
         $this->render();
     }
     

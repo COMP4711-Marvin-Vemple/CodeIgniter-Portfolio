@@ -1,6 +1,13 @@
 {project}
 <div class="" id="project-main">
     <img class="fullsize" src={image} alt=""/>
+    <div id="image-gallery" class="clearfix">
+        {images}
+        <a href="{filename}" data-lightbox="gallery">
+            <img src="{thumbnail}" alt="{alt}" />
+        </a>
+        {/images}
+    </div>
     <h1>{title}</h1>
     <time>{date}</time>
     <p>
