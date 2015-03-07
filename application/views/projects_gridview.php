@@ -8,4 +8,5 @@
 
     {toolbar}
 </div>
+<script src="/assets/js/pagination.js"></script>
 {projects}
