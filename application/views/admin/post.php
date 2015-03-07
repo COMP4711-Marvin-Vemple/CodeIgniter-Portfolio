@@ -1,3 +1,4 @@
+<a href="/admin/post/create" class="btn btn-default">New Post</a>
 <table>
     <tr>
         <td>ID</td>
