@@ -25,5 +25,8 @@
         {scripts}
             <script src="{script}"></script>
         {/scripts}
+        {components}
+            {component}
+        {/components}
     </body>
 </html>
