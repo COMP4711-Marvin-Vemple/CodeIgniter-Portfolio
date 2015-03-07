@@ -10,8 +10,32 @@
  * @author Marc Vouve
  * 
  */
-$(window).scroll(function() {
-   if($(window).scrollTop() + $(window).height() > $(document).height() - 200) {
-       alert("near bottom!");
-   }
-});
+$(window).scroll(Paginate());
+
+
+
+function Paginate()
+{
+    var page_id;
+    
+    (page_id === undefined)?page_id = 1:page_id++;
+    {
+        page_id = 1;
+    }
+    
+    var page = ["/project", "/post"];
+    
+    page.forEach(function(p)
+    {
+        console.log(p);
+        if(window.location.href.indexOf(window.location.host + p ) > -1 )
+        {
+            if($(window).scrollTop() + $(window).height() > $(document).height() - 50) 
+            {
+                $.post( p + "/page/" + page_id++, function(result){$console.log(result);} );
+            }
+            p = 0;
+        }
+    });
+    
+};
