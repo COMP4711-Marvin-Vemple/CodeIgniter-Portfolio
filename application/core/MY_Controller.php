@@ -52,20 +52,13 @@ class Application extends CI_Controller {
      * Render this page
      */
     function render() {
-        if ($this->data['mode'] === 'admin') {
-            $this->renderAdmin();
-        }
-        else if ($this->data['mode'] === 'frontpage') {
-            $this->renderFront();
-        }
-    }
-    
-    /**
-     * Render the Front-User view
-     */
-    function renderFront() {
+        // Select the Front or Admin Menu
+        $activeMenu = $this->menu;
+        if ($this->data['mode'] == 'admin')
+            $activeMenu = $this->adminMenu;
+        
         // Create the Menu Bar
-        $menuData = array('menu' => $this->menu, 'name' => $this->data['name']);
+        $menuData = array('menu' => $activeMenu, 'name' => $this->data['name']);
         $this->data['menubar'] = $this->parser->parse('_menubar', $menuData, true);
         
         // Load the page content
@@ -77,11 +70,11 @@ class Application extends CI_Controller {
     }
     
     /**
-     * Render the Admin Panel view
+     * Render the Front-User view
      */
-    function renderAdmin() {
+    function renderFront() {
         // Create the Menu Bar
-        $menuData = array('menu' => $this->adminMenu);
+        $menuData = array('menu' => $this->menu, 'name' => $this->data['name']);
         $this->data['menubar'] = $this->parser->parse('_menubar', $menuData, true);
         
         // Load the page content
