@@ -15,7 +15,7 @@ class Project extends Application {
     /**
      * The number of Projects to show on a Page.
      */
-    private static $NUM_PROJECTS_PER_PAGE = 6;
+    private static $NUM_PROJECTS_PER_PAGE = 2;
     
     /**
      * Templates used for displaying data.
@@ -30,7 +30,7 @@ class Project extends Application {
      * Controller for default "/project" page. Shows the first page of projects in a grid view.
      */
     public function index() {
-        $this->loadGridView(1, Project::$NUM_PROJECTS_PER_PAGE);
+        $this->loadGridView(1);
         $this->data['pagebody'] = Project::$TEMPLATE_GRIDVIEW;
         $this->render();
     }
@@ -39,12 +39,12 @@ class Project extends Application {
      * Display the selected page of Projects in a Grid View.
      * 
      * @param int $page the page number of Projects to retrieve (1-n)
-     * @param string $filter a tag to filter Projects by        (CURRENTLY IGNORED)
-     * @param string $sort a Project attribute to sort by       (CURRENTLY IGNORED)
-     * @param string $sortOrder the order to sort by            (CURRENTLY IGNORED)
+     * @param string $sort a Project attribute to sort by
+     * @param string $sortOrder the order to sort by
+     * @param string $filter a tag to filter Projects by
      */
-    public function gridview($page, $filter='', $sort='title', $sortOrder='asc') {
-        $this->loadGridView($page, Project::$NUM_PROJECTS_PER_PAGE, $filter, $sort, $sortOrder);
+    public function gridview($page, $sort='title', $sortOrder='asc', $filter='') {
+        $this->loadGridView($page, $filter, $sort, $sortOrder);
         $this->data['pagebody'] = Project::$TEMPLATE_GRIDVIEW;
         $this->render();
     }
@@ -53,12 +53,12 @@ class Project extends Application {
      * Display the selected page of Projects in a List View.
      * 
      * @param int $page the page number of Projects to retrieve (1-n)
-     * @param string $filter a tag to filter Projects by        (CURRENTLY IGNORED)
-     * @param string $sort a Project attribute to sort by       (CURRENTLY IGNORED)
-     * @param string $sortOrder the order to sort by            (CURRENTLY IGNORED)
+     * @param string $sort a Project attribute to sort by
+     * @param string $sortOrder the order to sort by
+     * @param string $filter a tag to filter Projects by
      */
-    public function listview($page, $filter='', $sort='title', $sortOrder='asc') {
-        $this->loadListView($page, Project::$NUM_PROJECTS_PER_PAGE, $filter, $sort, $sortOrder);
+    public function listview($page, $sort='title', $sortOrder='asc', $filter='') {
+        $this->loadListView($page, $filter, $sort, $sortOrder);
         $this->data['pagebody'] = Project::$TEMPLATE_LISTVIEW;
         $this->render();
     }
@@ -70,6 +70,7 @@ class Project extends Application {
      */
     public function id($id) {
         $this->data['project'] = $this->projects->getById($id);
+        $this->hideEmptyFields();
         $this->data['pagebody'] = Project::$TEMPLATE_SINGLE;
         $this->render();
     }
@@ -79,12 +80,12 @@ class Project extends Application {
      * Grid View layout.
      * 
      * @param int $page the page number of Projects to retrieve (1-n)
-     * @param string $filter a tag to filter Projects by        (CURRENTLY IGNORED)
-     * @param string $sort a Project attribute to sort by       (CURRENTLY IGNORED)
-     * @param string $sortOrder the order to sort by            (CURRENTLY IGNORED)
+     * @param string $filter a tag to filter Projects by
+     * @param string $sort a Project attribute to sort by
+     * @param string $sortOrder the order to sort by
      */
     public function gridview_ajax($page, $filter='', $sort='title', $sortOrder='asc') {
-        $this->loadGridView($page, Project::$NUM_PROJECTS_PER_PAGE, $filter, $sort, $sortOrder, false);
+        $this->loadGridView($page, $filter, $sort, $sortOrder, false);
     }
     
     /**
@@ -92,12 +93,12 @@ class Project extends Application {
      * List View layout.
      * 
      * @param int $page the page number of Projects to retrieve (1-n)
-     * @param string $filter a tag to filter Projects by        (CURRENTLY IGNORED)
-     * @param string $sort a Project attribute to sort by       (CURRENTLY IGNORED)
-     * @param string $sortOrder the order to sort by            (CURRENTLY IGNORED)
+     * @param string $filter a tag to filter Projects by
+     * @param string $sort a Project attribute to sort by
+     * @param string $sortOrder the order to sort by
      */
     public function listview_ajax($page, $filter='', $sort='title', $sortOrder='asc') {
-        $this->loadListView($page, Project::$NUM_PROJECTS_PER_PAGE, $filter, $sort, $sortOrder, false);
+        $this->loadListView($page, $filter, $sort, $sortOrder, false);
     }
     
     /**
@@ -105,15 +106,19 @@ class Project extends Application {
      * into data['projects'].
      * 
      * @param int $page the page number of Projects to retrieve (1-n)
-     * @param string $filter a tag to filter Projects by        (CURRENTLY IGNORED)
-     * @param string $sort a Project attribute to sort by       (CURRENTLY IGNORED)
-     * @param string $sortOrder the order to sort by            (CURRENTLY IGNORED)
+     * @param string $filter a tag to filter Projects by
+     * @param string $sort a Project attribute to sort by
+     * @param string $sortOrder the order to sort by
      * @param bool   $buffer if true, output is buffered in data['projects']. If false, data is
      *                       written to the browser.
      */
     private function loadListView($page, $filter='', $sort='title', $sortOrder='asc', $buffer=true) {
         $template = Project::$TEMPLATE_LISTVIEW_SECTION;
-        $this->data['projects'] = $this->projects->getPaginated($page, Project::$NUM_PROJECTS_PER_PAGE);
+        $this->data['projects'] = $this->projects->getPaginated($page,
+                                                                Project::$NUM_PROJECTS_PER_PAGE,
+                                                                $filter,
+                                                                $sort,
+                                                                $sortOrder);
         $this->data['projects'] = $this->parser->parse($template, $this->data, $buffer);
     }
     
@@ -122,15 +127,41 @@ class Project extends Application {
      * into data['projects'].
      * 
      * @param int $page the page number of Projects to retrieve (1-n)
-     * @param string $filter a tag to filter Projects by        (CURRENTLY IGNORED)
-     * @param string $sort a Project attribute to sort by       (CURRENTLY IGNORED)
-     * @param string $sortOrder the order to sort by            (CURRENTLY IGNORED)
+     * @param string $filter a tag to filter Projects by
+     * @param string $sort a Project attribute to sort by
+     * @param string $sortOrder the order to sort by
      * @param bool   $buffer if true, output is buffered in data['projects']. If false, data is
      *                       written to the browser.
      */
     private function loadGridView($page, $filter='', $sort='title', $sortOrder='asc', $buffer=true) {
         $template = Project::$TEMPLATE_GRIDVIEW_SECTION;
-        $this->data['projects'] = $this->projects->getPaginated($page, Project::$NUM_PROJECTS_PER_PAGE);
+        $this->data['projects'] = $this->projects->getPaginated($page,
+                                                                Project::$NUM_PROJECTS_PER_PAGE,
+                                                                $filter,
+                                                                $sort,
+                                                                $sortOrder);
         $this->data['projects'] = $this->parser->parse($template, $this->data, $buffer);
+    }
+    
+    /**
+     * Create empty containers for blank data
+     * 
+     * @param mixed $projectData the project data
+     */
+    private function hideEmptyFields() {
+        // Add Source Container
+        $this->data['project'][0]['source_container'] = [];
+        if ($this->data['project'][0]['source'] != '')
+            $this->data['project'][0]['source_container'][] = array('source' => $this->data['project'][0]['source']);
+        
+        // Add demo Container
+        $this->data['project'][0]['demo_container'] = [];
+        if ($this->data['project'][0]['demo'] != '')
+            $this->data['project'][0]['demo_container'][] = array('demo' => $this->data['project'][0]['demo']);
+        
+        // Add Github Container
+        $this->data['project'][0]['github_container'] = [];
+        if ($this->data['project'][0]['github'] != '')
+            $this->data['project'][0]['github_container'][] = array('github' => $this->data['project'][0]['github']);
     }
 }
