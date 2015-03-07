@@ -1,5 +1,5 @@
 <a href="/admin/project/create" class="btn btn-default">New Post</a>
-<table>
+<table class="table">
     <tr>
         <td>ID</td>
         <td>Title</td>
@@ -10,12 +10,11 @@
         
         <td>{id}</td>
         <td>{title}</td>
-        <td>{edit}</td>
         <td>
-            <a href={edit_link} class="btn btn-default" type="button">{edit}</a>
+            <a href="admin/project/edit/{id}" class="btn btn-default" type="button">Edit</a>
         </td>
         <td>
-            <a href={delete_link} class="btn btn-default" type="button">{delete}</a>
+            <a href="admin/project/edit/{id}" class="btn btn-default" type="button">Delete</a>
         <td>
     </tr>
     {/entry}

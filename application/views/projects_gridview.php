@@ -2,4 +2,5 @@
     <a type="button" class="btn btn-default active"><span class="glyphicon glyphicon-th"></span></a>
   <a type="button" class="btn btn-default" href="/project/listview/1/"><span class="glyphicon glyphicon-th-list"></span></a>
 </div>
+<script src="/assets/js/pagination.js"></script>
 {projects}
