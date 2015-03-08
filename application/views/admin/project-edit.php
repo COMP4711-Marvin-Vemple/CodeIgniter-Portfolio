@@ -5,21 +5,16 @@
 <form action="/admin/post" method="POST">
     <div>
         <label for="id">ID</label>
-        <input type="text" name="id" id="id" class="form-control">
+        <input type="text" name="id" id="id" class="form-control" value="{id}" disabled="true">
         
         <!-- Image upload stuff -->
         <label for="id">Title</label>
-        <input type="text" name="id" id="id" class="form-control">
+        <input type="text" name="id" id="id" class="form-control" value="{title}">
         
          <label for="id">Short Description</label>
         <textarea name="short-description" class="form-control">
-            {source}
+            {short_description}
         </textarea>
-        
-        <label for="id">ID</label>
-        <input type="text" name="id" id="id" class="form-control">
-        
-        
         
         <label for="post">Description</label>
         <textarea name="description" class="editor">
@@ -37,7 +32,7 @@
        <label for="demo">Demo</label>
        <input type="url" class="form-control">
     
-        <input name="Save" class="btn btn-focus" type="submit" value="Save" />
+        <input name="Save" class="btn btn-default" type="submit" value="Save" />
     </div>
     
     
