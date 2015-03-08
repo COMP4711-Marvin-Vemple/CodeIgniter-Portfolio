@@ -176,3 +176,8 @@ img.recent-blog-thumb
 {
     width: 7em;
 }
+
+.control-group
+{
+    margin-bottom: 10px;
+}
