@@ -14,13 +14,21 @@
 
 <form action="/admin/post/addimage"
       class="dropzone"
-      id="psdropzone"></form>
+      id="psdropzone">
+</form>
 
 
-<form action="/admin/post" id="edit" method="POST">
+<form action="/admin/post/{action}" id="edit" method="POST">
+    <!-- Show Already Uploaded Images -->
+    <div id="image-gallery" class="clearfix">
+        {images}
+        <img src="/uploads/{image}" alt="{image}" />
+        <input type="hidden" name="image[]" value="{image}" />
+        {/images}
+    </div>
+
     <div>
-        <label for="id">ID</label>
-        <input type="text" name="id" id="id" class="form-control" value="{id}" readonly="true">
+        <input type="hidden" name="id" id="id" class="form-control" value="{id}" readonly="true">
 
         <label for="title">Title</label>
         <input type="text" name="title" id="title" class="form-control" value="{title}">
