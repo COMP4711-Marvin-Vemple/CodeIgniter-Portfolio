@@ -1,3 +1,8 @@
+<form action="/admin/post/addimage"
+      class="dropzone"
+      id="psdropzone"></form>
+
+
 <form action="/admin/post" method="POST">
     <div>
         <label for="id">ID</label>
@@ -20,6 +25,3 @@
     </div>
     
 </form>
-<form action="/admin/post/addimage"
-      class="dropzone"
-      id="psdropzone"></form>
