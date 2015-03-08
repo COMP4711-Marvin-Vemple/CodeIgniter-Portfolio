@@ -31,6 +31,15 @@ class Project extends Application {
         $this->data['mode'] = 'admin';
         $this->data['pagebody'] = 'admin/project-edit';
         $this->render();
+        
+        // Load dropzone
+        $this->data['scripts'][] = array('script'=>"/assets/js/dropzone.js");
+        $this->data['scripts'][] = array('script'=>"/assets/js/dropzoneconfig.js");
+        
+        // Load MCE
+        $this->data['scripts'][] = array('script'=>"//tinymce.cachefly.net/4.1/tinymce.min.js");
+        $this->data['components'][] = array('component'=>$this->parser->parse('components/tinymce', array('selector'=>'.editor'), true));
+        $this->render();
     }
     
     /**
