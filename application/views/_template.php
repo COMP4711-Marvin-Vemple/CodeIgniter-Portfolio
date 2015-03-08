@@ -19,7 +19,10 @@
         <div class="container">
         {content}
         </div>
-        <footer class="container-fluid">{name} {year} {email}</footer>
+        <footer class="container-fluid">
+            {name} {year} {email}
+            <a href="/Admin" title="Admin Panel">Admin Panel</a>
+        </footer>
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         {scripts}
