@@ -8,5 +8,13 @@
 
     {toolbar}
 </div>
-<script src="/assets/js/pagination.js"></script>
-{projects}
+
+<div id="projects" class="row">
+    {projects}
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-center"> 
+        <button id="loadProjects" name="loadProjects" class="btn btn-primary" onClick="">Load More Projects</button> 
+    </div>
+</div>
