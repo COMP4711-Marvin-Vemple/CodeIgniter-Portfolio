@@ -137,4 +137,4 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 
-$autoload['model'] = array('posts', 'projects', 'repositories', 'tags', 'images');
+$autoload['model'] = array('posts', 'projects', 'repositories', 'tags', 'images', 'settings');
