@@ -12,7 +12,7 @@ class Post extends Application {
     /**
      * The number of Posts to show on a Page.
      */
-    private static $POSTS_PER_PAGE = 5;
+    private static $POSTS_PER_PAGE = 10;
     
     /**
      * The Templates to use for displaying data.
@@ -48,7 +48,7 @@ class Post extends Application {
      * @param int $id the ID of the post to display.
      */
     public function id($id) {
-        $this->data['post'] = $this->posts->getById($id);
+        $this->data['post'] = array($this->posts->getById($id));
         $this->data['pagebody'] = Post::$TEMPLATE_SINGLE;
         $this->render();
     }

@@ -1,0 +1,1 @@
+<script>initPagination("{container}", "{controller}", {page}, "{filter}", "{sortVar}", "{sortOrder}", "{button}");</script>
