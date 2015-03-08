@@ -9,7 +9,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Repository extends Application {
     
-    private static $GITHUB_CACHE_LENGTH_MINUTES = 1440;     // 24 hours
+    private static $GITHUB_CACHE_LENGTH_MINUTES = 0;        // DISABLE CACHING DURING DEVELOPMENT
+    private static $DEFAULT_NUM_COMMITS_TO_SHOW = 15;
+    private static $DEFAULT_USERNAME            = 'calvinrempel';
     
     /**
      * The Templates to use for displaying data.
@@ -22,7 +24,20 @@ class Repository extends Application {
      */
     public function index() {
         $this->output->cache(Repository::$GITHUB_CACHE_LENGTH_MINUTES);
-        $this->data['repos'] = $this->repositories->getRepositories('calvinrempel', 'owner');
+        
+        // Get Username from Settings (or set to default if not set)
+        $username = $this->settings->getValue('github_username');
+        if ($username == '')
+            $username = Repository::$DEFAULT_USERNAME;
+        
+        // Get repo type from settings (or use 'all' if not set)
+        $repoType = $this->settings->getValue('github_repo_type');
+        if ($repoType == '')
+            $repoType = 'all';
+        
+        // Get the users repositories
+        $this->data['repos'] = $this->repositories->getRepositories($username,
+                                                                    $repoType);
         $this->data['pagebody'] = Repository::$TEMPLATE_MULTIPLE;
         $this->render();
     }
@@ -34,8 +49,20 @@ class Repository extends Application {
      */
     public function commits($repo) {
         $this->output->cache(Repository::$GITHUB_CACHE_LENGTH_MINUTES);
+        
+        // Get Username from Settings (or set to default if not set)
+        $username = $this->settings->getValue('github_username');
+        if ($username == '')
+            $username = Repository::$DEFAULT_USERNAME;
+        
+        // Get Number of Commits to show from Settings (or use default if not set)
+        $numCommits = intval($this->settings->getValue('github_num_commits'));
+        if ($numCommits == '')
+            $numCommits = Repository::$DEFAULT_NUM_COMMITS_TO_SHOW;
+        
+        // Get the Commits from the Repo
         $this->data['repo'] = $repo;
-        $this->data['commits'] = $this->repositories->getCommits('calvinrempel', $repo, 10);
+        $this->data['commits'] = $this->repositories->getCommits($username, $repo, $numCommits);
         $this->data['pagebody'] = Repository::$TEMPLATE_SINGLE;
         $this->render();
     }

@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS ci_portfolio.images (
     filename    VARCHAR(255) NOT NULL,
     alt         VARCHAR(128) NOT NULL,
     project     INT(11)      NOT NULL,
+    thumbnail   VARCHAR(255) NOT NULL,
     PRIMARY KEY (filename, project)
 );
 
@@ -41,8 +42,16 @@ CREATE TABLE IF NOT EXISTS ci_portfolio.tags (
     PRIMARY KEY (tag, project)
 );
 
+CREATE TABLE IF NOT EXISTS ci_portfolio.settings (
+    name    VARCHAR(32)     NOT NULL,
+    value   VARCHAR(255)    NOT NULL,
+    PRIMARY KEY (name)
+);
+
 /* Database Modifications */
+/*
 ALTER TABLE ci_portfolio.images
     ADD thumbnail VARCHAR(255) AFTER filename;
+*/
 
 /* Populate with Test Data */
