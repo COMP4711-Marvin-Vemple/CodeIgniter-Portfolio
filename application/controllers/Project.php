@@ -15,7 +15,7 @@ class Project extends Application {
     /**
      * The number of Projects to show on a Page.
      */
-    private static $NUM_PROJECTS_PER_PAGE = 10;
+    private static $NUM_PROJECTS_PER_PAGE = 1;
     
     /**
      * Templates used for displaying data.
@@ -59,6 +59,17 @@ class Project extends Application {
         $this->constructSortFilters();
         $this->data['toolbar'] = $this->parser->parse('projects_toolbar', $this->data, true);
         $this->data['pagebody'] = Project::$TEMPLATE_GRIDVIEW;
+        
+        $pageData = array ('container'  => '#projects',
+                           'controller' => '/Project/gridview_ajax',
+                           'page'       => $page,
+                           'sortVar'    => $sort,
+                           'sortOrder'  => $sortOrder,
+                           'filter'     => $filter,
+                           'button'     => '#loadProjects');
+        
+        $this->data['scripts'][] = array('script'=>'/assets/js/pagination.js');
+        $this->data['components'][] = array('component' => $this->parser->parse('components/ajax-paginator', $pageData, true));
         $this->render();
     }
     
@@ -82,6 +93,16 @@ class Project extends Application {
         $this->constructSortFilters();
         $this->data['toolbar'] = $this->parser->parse('projects_toolbar', $this->data, true);
         $this->data['pagebody'] = Project::$TEMPLATE_LISTVIEW;
+        
+        $pageData = array ('container'  => '#projects',
+                           'controller' => '/Project/listview_ajax',
+                           'page'       => $page,
+                           'sortVar'    => $sort,
+                           'sortOrder'  => $sortOrder,
+                           'filter'     => $filter,
+                           'button'     => '#loadProjects');
+        $this->data['scripts'][] = array('script'=>'/assets/js/pagination.js');
+        $this->data['components'][] = array('component' => $this->parser->parse('components/ajax-paginator', $pageData, true));
         $this->render();
     }
     
@@ -106,11 +127,11 @@ class Project extends Application {
      * Grid View layout.
      * 
      * @param int $page the page number of Projects to retrieve (1-n)
-     * @param string $filter a tag to filter Projects by
      * @param string $sort a Project attribute to sort by
      * @param string $sortOrder the order to sort by
+     * @param string $filter a tag to filter Projects by
      */
-    public function gridview_ajax($page, $filter='', $sort='title', $sortOrder='asc') {
+    public function gridview_ajax($page, $sort='title', $sortOrder='asc', $filter='') {
         $this->loadGridView($page, $filter, $sort, $sortOrder, false);
     }
     
@@ -119,11 +140,11 @@ class Project extends Application {
      * List View layout.
      * 
      * @param int $page the page number of Projects to retrieve (1-n)
-     * @param string $filter a tag to filter Projects by
      * @param string $sort a Project attribute to sort by
      * @param string $sortOrder the order to sort by
+     * @param string $filter a tag to filter Projects by
      */
-    public function listview_ajax($page, $filter='', $sort='title', $sortOrder='asc') {
+    public function listview_ajax($page, $sort='title', $sortOrder='asc', $filter='') {
         $this->loadListView($page, $filter, $sort, $sortOrder, false);
     }
     
