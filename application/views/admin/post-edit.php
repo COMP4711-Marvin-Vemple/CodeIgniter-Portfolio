@@ -3,7 +3,7 @@
       id="psdropzone"></form>
 
 
-<form action="/admin/post" method="POST">
+<form action="/admin/post" id="edit" method="POST">
     <div>
         <label for="id">ID</label>
         <input type="text" name="id" id="id" class="form-control" value="{id}">
