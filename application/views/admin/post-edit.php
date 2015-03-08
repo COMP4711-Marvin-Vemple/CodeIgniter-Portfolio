@@ -1,3 +1,17 @@
+<h3>Post</h3>
+
+{success}
+<div class="alert alert-success">
+    {message}
+</div>
+{/success}
+
+{errors}
+<div class="alert alert-danger">
+    {message}
+</div>
+{/errors}
+
 <form action="/admin/post/addimage"
       class="dropzone"
       id="psdropzone"></form>
@@ -7,7 +21,7 @@
     <div>
         <label for="id">ID</label>
         <input type="text" name="id" id="id" class="form-control" value="{id}">
-        
+
         <label for="title">Title</label>
         <input type="text" name="title" id="title" class="form-control" value="{title}">
         

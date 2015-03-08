@@ -25,13 +25,13 @@ class Post extends Application {
         $this->data['mode'] = 'admin';
         $this->data['pagebody'] = 'admin/post-edit';
         
-        // Load dropzone
-        $this->data['scripts'][] = array('script'=>"/assets/js/dropzone.js");
-        $this->data['scripts'][] = array('script'=>"/assets/js/dropzoneconfig.js");
         
-        // Load MCE
-        $this->data['scripts'][] = array('script'=>"//tinymce.cachefly.net/4.1/tinymce.min.js");
-        $this->data['components'][] = array('component'=>$this->parser->parse('components/tinymce', array('selector'=>'.editor'), true));
+        $this->data['id'] = '';
+        $this->data['title'] = '';
+        $this->data['description'] = '';
+        $this->data['post'] = '';
+        
+        $this->presentForm();
         $this->render();
     }
     
@@ -43,6 +43,9 @@ class Post extends Application {
     public function edit($id) {
         $this->data['mode'] = 'admin';
         $this->data['pagebody'] = 'admin/post-edit';
+        
+        $this->data['id'] = $this->Post->getById($id);
+        
         $this->render();
     }
     
@@ -68,5 +71,25 @@ class Post extends Application {
         }
         
         return true;
+    }
+    
+    public function submit()
+    {
+        
+    }
+    
+    private function presentForm()
+    {
+        $this->data['success'] = array();
+        $this->data['errors'] = array();
+        
+        // Load dropzone
+        $this->data['scripts'][] = array('script'=>"/assets/js/dropzone.js");
+        $this->data['scripts'][] = array('script'=>"/assets/js/dropzoneconfig.js");
+        
+        // Load MCE
+        $this->data['scripts'][] = array('script'=>"//tinymce.cachefly.net/4.1/tinymce.min.js");
+        $this->data['components'][] = array('component'=>$this->parser->parse('components/tinymce', array('selector'=>'.editor'), true));
+        
     }
 }
