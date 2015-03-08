@@ -21,10 +21,10 @@
         <textarea name="source" class="form-control">{source}</textarea>
        
        <label for="github">GitHub</label>
-       <input type="url" class="form-control">
+       <input type="url" class="form-control" value="{github}">
        
        <label for="demo">Demo</label>
-       <input type="url" class="form-control">
+       <input type="url" class="form-control" value="{demo}">
     
         <input name="Save" class="btn btn-default" type="submit" value="Save" />
     </div>
