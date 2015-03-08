@@ -44,4 +44,8 @@ class Post extends Application {
         $this->render();
     }
     
+    public function addimage()
+    {
+        return true;
+    }
 }

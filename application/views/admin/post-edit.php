@@ -15,6 +15,6 @@
     </div>
     
 </form>
-<form action="/file-upload"
+<form action="/admin/post/addimage"
       class="dropzone"
       id="psdropzone"></form>
