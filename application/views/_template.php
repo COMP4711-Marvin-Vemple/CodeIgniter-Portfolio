@@ -25,16 +25,13 @@
         </footer>
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
         <script src="/assets/js/banner.js"></script>
         <script src="/assets/js/pagination.js"></script>
-=======
         {scripts}
             <script src="{script}"></script>
         {/scripts}
         {components}
             {component}
         {/components}
->>>>>>> 72d6ef72bfa9b7556ba28fe5ff78ea0d1e24c792
     </body>
 </html>
