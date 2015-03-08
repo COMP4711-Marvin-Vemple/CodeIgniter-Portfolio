@@ -6,7 +6,7 @@
  * 
  * @author Calvin Rempel
  */
-class Posts extends CI_Model {
+class Settings extends CI_Model {
     private $data;
     
     /**
@@ -14,21 +14,25 @@ class Posts extends CI_Model {
      */
     public function __construct() {
         parent::__construct();
-        $this->data = (array) $this->db->get('settings');
-        var_dump($this->data);
+        $result = (array) $this->db->get('settings')->result();
+        
+        // Store settings with name as key
+        foreach ($result as $setting) {
+            $this->data[$setting->name] = $setting->value;
+        }
     }
     
     /**
      * Get the Value of a Setting
      * 
      * @param string $name the name of the settings whose value to retreive
-     * @return string data (null if doesn't exist)
+     * @return string data (empty string if doesn't exist)
      */
     public function getValue($name) {
         if (isset($this->data[$name]))
             return $this->data[$name];
         
-        return null;
+        return '';
     }
     
     /**
@@ -55,6 +59,6 @@ class Posts extends CI_Model {
         }
         
         // Update cached copy in memory
-        $this->data[$name] = value;
+        $this->data[$name] = $value;
     }
 }
