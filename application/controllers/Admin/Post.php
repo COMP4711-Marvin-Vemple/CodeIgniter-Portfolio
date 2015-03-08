@@ -48,14 +48,19 @@ class Post extends Application {
     
     public function addimage()
     {
+        
+        
+        $file_name = hash("sha256", time() . rand());
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png';
+        
+        $config['file_name'] = $file_name;
         
         $this->load->library('upload', $config);
         
         if($this->upload->do_upload("file"))
         {
-            echo('done upload');
+            echo($this->upload->data()['file_name']);
         }
         else 
         {
