@@ -26,7 +26,7 @@ class About extends Application {
         
         // Load TinyMCE
         $this->data['scripts'][] = array('script'=>"//tinymce.cachefly.net/4.1/tinymce.min.js");
-        $this->data['components'][] = array('component'=>$this->parser->parse('components/tinymce', array('selector'=>'.editor')));
+        $this->data['components'][] = array('component'=>$this->parser->parse('components/tinymce', array('selector'=>'.editor'), true));
         
         $this->render();
     }
