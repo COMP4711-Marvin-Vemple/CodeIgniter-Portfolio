@@ -181,3 +181,8 @@ img.recent-blog-thumb
 {
     margin-bottom: 10px;
 }
+
+#psdropzone
+{
+    min-height: 10em;
+}
