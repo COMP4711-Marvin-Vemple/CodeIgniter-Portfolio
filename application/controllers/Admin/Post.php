@@ -46,6 +46,11 @@ class Post extends Application {
         
         $this->data['id'] = $this->Post->getById($id);
         
+        $this->data['id'] = '';
+        $this->data['title'] = '';
+        $this->data['description'] = '';
+        $this->data['post'] = '';
+        
         $this->render();
     }
     
@@ -75,7 +80,35 @@ class Post extends Application {
     
     public function submit()
     {
-        
+        if($this->input->post('id', TRUE) != false )
+        {
+            // If this is a new post.
+            if($this->input->post('id', TRUE) == '')
+            {
+                $this->Post->create
+                        (
+                            $this->input->post('title', true),
+                            $this->input->post('description', true),
+                            $this->input->post('content', true),
+                            $this->input->post('image', true)[0],
+                            '',
+                            time()
+                        );
+            }
+            else 
+            {
+                $this->Post->edit
+                        (
+                            $this->input->post('id', true),
+                            $this->input->post('title', true),
+                            $this->input->post('description', true),
+                            $this->input->post('content', true),
+                            $this->input->post('image', true),
+                            '',
+                            time()
+                        );
+            }
+        }
     }
     
     private function presentForm()

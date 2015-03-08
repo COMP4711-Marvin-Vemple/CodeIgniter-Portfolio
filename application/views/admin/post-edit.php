@@ -20,13 +20,13 @@
 <form action="/admin/post" id="edit" method="POST">
     <div>
         <label for="id">ID</label>
-        <input type="text" name="id" id="id" class="form-control" value="{id}">
+        <input type="text" name="id" id="id" class="form-control" value="{id}" readonly="true">
 
         <label for="title">Title</label>
         <input type="text" name="title" id="title" class="form-control" value="{title}">
         
-        <label for="post">Description ( optional: 128 char max )</label>
-        <textarea name="post" class="editor">
+        <label for="description">Description ( optional: 128 char max )</label>
+        <textarea name="description" class="editor">
             {description}
         </textarea>
         
