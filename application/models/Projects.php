@@ -83,7 +83,6 @@ class Projects extends CI_Model {
         // Set the filter if the filter has been set
         if ($filter != '')
         {
-            echo "FILTER: " . $filter . "<br/>";
             $this->db->join('tags', 'projects.id=tags.project', 'left');
             $this->db->where('tags.tag', $filter);
             $this->db->group_by('projects.id');
