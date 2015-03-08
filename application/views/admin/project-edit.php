@@ -12,19 +12,13 @@
         <input type="text" name="id" id="id" class="form-control" value="{title}">
         
          <label for="id">Short Description</label>
-        <textarea name="short-description" class="form-control">
-            {short_description}
-        </textarea>
+        <textarea name="short-description" class="form-control">{short_description}</textarea>
         
         <label for="post">Description</label>
-        <textarea name="description" class="editor">
-            {description}
-        </textarea>
+        <textarea name="description" class="editor">{description}</textarea>
         
        <label for="source">Source</label>
-        <textarea name="source" class="form-control">
-            {source}
-        </textarea>
+        <textarea name="source" class="form-control">{source}</textarea>
        
        <label for="github">GitHub</label>
        <input type="url" class="form-control">

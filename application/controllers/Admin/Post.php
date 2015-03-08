@@ -48,6 +48,20 @@ class Post extends Application {
     
     public function addimage()
     {
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        
+        $this->load->library('upload', $config);
+        
+        if($this->upload->do_upload("file"))
+        {
+            echo('done upload');
+        }
+        else 
+        {
+            echo('failed');
+        }
+        
         return true;
     }
 }
