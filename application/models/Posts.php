@@ -28,7 +28,7 @@ class Posts extends CI_Model {
         $this->db->insert('posts', $data);
     }
     
-    public function edit($id, $description, $content, $image, $thumbnail, $date) {
+    public function edit($id, $title, $description, $content, $image, $thumbnail, $date) {
         $data = array (
           'title'       => $title,
           'description' => $description,
@@ -63,6 +63,20 @@ class Posts extends CI_Model {
      */
     public function getPaginated($page, $perPage) {
         $this->db->limit($perPage, ($page * $perPage) - $perPage);
+        $data = $this->db->get('posts')->result();
+        
+        return (array) $data;
+    }
+    
+    /**
+     * Get Recent Posts
+     * 
+     * @param int $perPage the number of Posts to return per page.
+     * @return Post data
+     */
+    public function getRecent($perPage) {
+        $this->db->limit($perPage, 0);
+        $this->db->order_by('id', 'desc');
         $data = $this->db->get('posts')->result();
         
         return (array) $data;

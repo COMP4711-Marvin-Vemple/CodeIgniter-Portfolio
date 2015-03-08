@@ -28,7 +28,7 @@ class Welcome extends Application {
             $this->data['first_featured_project'] = array(array_shift($featured_projects));
         
         $this->data['featured_projects'] = $featured_projects;
-        $this->data['recent_posts'] = $this->posts->getPaginated(1, Welcome::$NUM_RECENT_POSTS);
+        $this->data['recent_posts'] = $this->posts->getRecent(Welcome::$NUM_RECENT_POSTS);
         $this->data['pagebody'] = 'homepage';
         
         $this->render();

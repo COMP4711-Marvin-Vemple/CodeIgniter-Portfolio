@@ -24,14 +24,16 @@ class Post extends Application {
     public function create() {
         $this->data['mode'] = 'admin';
         $this->data['pagebody'] = 'admin/post-edit';
-        
+        $this->data['action'] = 'create';
         
         $this->data['id'] = '';
         $this->data['title'] = '';
         $this->data['description'] = '';
         $this->data['post'] = '';
+        $this->data['images'] = array();
         
         $this->presentForm();
+        $this->submit();
         $this->render();
     }
     
@@ -43,21 +45,27 @@ class Post extends Application {
     public function edit($id) {
         $this->data['mode'] = 'admin';
         $this->data['pagebody'] = 'admin/post-edit';
+        $this->data['action'] = 'edit/' . $id;
         
-        $this->data['id'] = $this->Post->getById($id);
+        $post = $this->posts->getById($id);
+        $this->data['id'] = $post['id'];
+        $this->data['title'] = $post['title'];
+        $this->data['description'] = $post['description'];
+        $this->data['post'] = $post['content'];
+        $this->data['images'] = array( array('image' => $post['image']) );
         
-        $this->data['id'] = '';
-        $this->data['title'] = '';
-        $this->data['description'] = '';
-        $this->data['post'] = '';
-        
+        $this->presentForm();
+        $this->submit();
         $this->render();
     }
     
+    /**
+     * Save an uploaded file
+     * 
+     * @return boolean true.
+     */
     public function addimage()
     {
-        
-        
         $file_name = hash("sha256", time() . rand());
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png';
@@ -66,9 +74,11 @@ class Post extends Application {
         
         $this->load->library('upload', $config);
         
+        // Return the image url or "failed" to the uploading browser
         if($this->upload->do_upload("file"))
         {
-            echo($this->upload->data()['file_name']);
+            $uploadData = $this->upload->data();
+            echo($uploadData['file_name']);
         }
         else 
         {
@@ -78,51 +88,109 @@ class Post extends Application {
         return true;
     }
     
+    /**
+     * Validate input data and either create a new Post or edit and existing post.
+     */
     public function submit()
     {
-        if($this->input->post('id', TRUE) != false )
+        // Only do anything if the form has been submitted
+        if($this->input->post('Save', TRUE) != false )
         {
-            // If this is a new post.
-            if($this->input->post('id', TRUE) == '')
+            $images = $this->input->post('image', true);
+            
+            // Populate template variables with input values
+            $this->data['id'] = $this->input->post('id', true);
+            $this->data['title'] = $this->input->post('title', true);
+            $this->data['description'] = $this->input->post('description', true);
+            $this->data['post'] = $this->input->post('post', true);
+            
+            if (count($images) > 0)
+                $this->data['images'][0]  = array('image' => $images[0]);
+            
+            // If data is invalid, return immediately.
+            if (!$this->validateInput())
+                return;
+            
+            // Create a new Post if the ID is not set
+            if($this->data['id'] == '')
             {
-                $this->Post->create
+                $this->posts->create
                         (
-                            $this->input->post('title', true),
-                            $this->input->post('description', true),
-                            $this->input->post('content', true),
-                            $this->input->post('image', true)[0],
+                            $this->data['title'],
+                            $this->data['description'],
+                            $this->data['post'],
+                            $this->data['images'][0]['image'],
                             '',
-                            time()
+                            date("Y-m-d H:i:s")
                         );
+                
+                // Redirect to /Admin/Post
+                $this->load->helper('url');
+                redirect('/Admin/Post');
             }
+            // Edit the post if the ID is set
             else 
             {
-                $this->Post->edit
+                $this->posts->edit
                         (
-                            $this->input->post('id', true),
-                            $this->input->post('title', true),
-                            $this->input->post('description', true),
-                            $this->input->post('content', true),
-                            $this->input->post('image', true),
+                            $this->data['id'],
+                            $this->data['title'],
+                            $this->data['description'],
+                            $this->data['post'],
+                            $this->data['images'][0]['image'],
                             '',
-                            time()
+                            date("Y-m-d H:i:s")
                         );
+                
+                // Show a success message
+                $this->data['success'][] = array('message'=>'Post Editted!');
             }
         }
     }
     
+    /**
+     * Prepare the Form for rendering
+     */
     private function presentForm()
     {
         $this->data['success'] = array();
         $this->data['errors'] = array();
         
         // Load dropzone
+        $this->data['styles'][] = array('style'=>'/assets/css/dropzone.css');
         $this->data['scripts'][] = array('script'=>"/assets/js/dropzone.js");
         $this->data['scripts'][] = array('script'=>"/assets/js/dropzoneconfig.js");
         
         // Load MCE
         $this->data['scripts'][] = array('script'=>"//tinymce.cachefly.net/4.1/tinymce.min.js");
         $this->data['components'][] = array('component'=>$this->parser->parse('components/tinymce', array('selector'=>'.editor'), true));
+    }
+    
+    /**
+     * Validate form input
+     * 
+     * @return boolean false if input is invalid / true if input is valid
+     */
+    private function validateInput()
+    {
+        // Validate Input
+        if (strlen($this->data['title']) == 0)
+            $this->data['errors'][] = array('message'=>'Title must not be emtpy.');
+
+        if (strlen($this->data['description']) > 128)
+            $this->data['errors'][] = array('message'=>'Description must be <= 128 characters.');
+
+        if (strlen($this->data['post']) == 0)
+            $this->data['errors'][] = array('message'=>'Post must not be emtpy.');
+
+        if (count($this->data['images']) == 0)
+            $this->data['errors'][] = array('message'=>'Please submit an image.');
         
+        // Return false if there are errors
+        if (count($this->data['errors']) > 0)
+            return false;
+        
+        // Return true if there are no errors
+        return true;
     }
 }
