@@ -24,6 +24,10 @@ class Post extends Application {
     public function create() {
         $this->data['mode'] = 'admin';
         $this->data['pagebody'] = 'admin/post-edit';
+        
+        // Load MCE
+        $this->data['scripts'][] = array('script'=>"//tinymce.cachefly.net/4.1/tinymce.min.js");
+        $this->data['components'][] = array('component'=>$this->parser->parse('components/tinymce', array('selector'=>'.editor'), true));
         $this->render();
     }
     
