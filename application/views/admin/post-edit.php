@@ -1,12 +1,17 @@
 <form action="/admin/post" method="POST">
     <div>
         <label for="id">ID</label>
-        <input type="text" name="id" id="id" class="form-control">
+        <input type="text" name="id" id="id" class="form-control" value="{id}">
         
-        <!-- Image upload stuff -->
-       
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" class="form-control" value="{title}">
         
-        <label for="post">Description</label>
+        <label for="post">Description ( optional: 128 char max )</label>
+        <textarea name="post" class="editor">
+            {description}
+        </textarea>
+        
+        <label for="post">Content</label>
         <textarea name="post" class="editor">
             {post}
         </textarea>

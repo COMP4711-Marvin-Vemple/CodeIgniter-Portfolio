@@ -30,7 +30,6 @@ class Project extends Application {
     public function create() {
         $this->data['mode'] = 'admin';
         $this->data['pagebody'] = 'admin/project-edit';
-        $this->render();
         
         // Load dropzone
         $this->data['scripts'][] = array('script'=>"/assets/js/dropzone.js");
