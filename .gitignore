@@ -2,3 +2,4 @@
 */logs/log-*.php
 */logs/!index.html
 */cache/!index.html
+/application/cache/
