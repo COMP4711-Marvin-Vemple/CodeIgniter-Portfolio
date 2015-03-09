@@ -74,6 +74,12 @@ class Project extends Application {
             $images = $this->input->post('image', true);
             
             $this->data['id'] = $this->input->post('id', true);
+            $this->data['title'] = $this->post('title', true);
+            $this->data['short_description'] = $this->post('short_description', true);
+            $this->data['description'] = $this->post('description', true);
+            $this->data['source'] = $this->post('source', true);
+            $this->data['github'] = $this->post('github', true);
+            $this->data['demo']  = $this->post('demo', true);
         }
         
     }

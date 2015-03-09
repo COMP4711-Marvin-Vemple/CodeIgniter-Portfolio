@@ -12,7 +12,7 @@
         <input type="text" name="id" id="id" class="form-control" value="{title}">
         
          <label for="id">Short Description</label>
-        <textarea name="short-description" class="form-control">{short_description}</textarea>
+        <textarea name="short_description" class="form-control">{short_description}</textarea>
         
         <label for="post">Description</label>
         <textarea name="description" class="editor">{description}</textarea>
