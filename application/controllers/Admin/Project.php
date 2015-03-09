@@ -50,7 +50,7 @@ class Project extends Application {
     public function edit($id) {
         $this->data['mode'] = 'admin';
         $this->data['pagebody'] = 'admin/project-edit';
-        $this->data['action'] == 'edit/' . $id;
+        $this->data['action'] = 'edit/' . $id;
         
         $project = $this->projects()->getById($id);
         $this->data['id'] = $project['id'];
@@ -141,8 +141,29 @@ class Project extends Application {
         
     }
     
+    /*
+     * validates the form to be submitted.
+     */
     private function validateInput()
     {
+        // Validate Input
+        if (strlen($this->data['title']) == 0)
+            $this->data['errors'][] = array('message'=>'Title must not be emtpy.');
+
+        if (strlen($this->data['description']) > 128)
+            $this->data['errors'][] = array('message'=>'Description must be <= 128 characters.');
+
+        if (strlen($this->data['post']) == 0)
+            $this->data['errors'][] = array('message'=>'Post must not be emtpy.');
+
+        if (count($this->data['images']) == 0)
+            $this->data['errors'][] = array('message'=>'Please submit an image.');
         
+        // Return false if there are errors
+        if (count($this->data['errors']) > 0)
+            return false;
+        
+        // Return true if there are no errors
+        return true;
     }
 }
