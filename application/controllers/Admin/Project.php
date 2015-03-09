@@ -63,6 +63,9 @@ class Project extends Application {
         $this->data['source'] = $project[0]['source'];
         $this->data['github'] = $project[0]['github'];
         $this->data['demo'] = $project[0]['demo'];
+        $this->data['tags'] = $project[0]['tags'];
+        
+        var_dump($this->data);
         
         $this->presentForm();
         $this->submit();
@@ -76,10 +79,6 @@ class Project extends Application {
     public function submit()
     {
         // only proceed if the form as been submitted.
-        if(length($this->input->post('image', true)) > 0)
-        {
-            $this->projects->getById($this->input->post('id', true));
-        }
         if($this->input->post('Save', TRUE) != false )
         {
             $images = $this->input->post('image', true);
@@ -91,7 +90,7 @@ class Project extends Application {
             $this->data['source'] = $this->input->post('source', true);
             $this->data['github'] = $this->input->post('github', true);
             $this->data['demo']  = $this->input->post('demo', true);
-            $this->data['tags'] = array();
+            $this->data['tags'] = $this->input->post('tags', true);
             $this->data['images'] = $this->input->post('image', true);
             
             // make sure there's images to save before it tries to save any.
@@ -107,7 +106,7 @@ class Project extends Application {
             
             if($this->data['id'] == '')
             {
-                $this->projects->create
+                $id = $this->projects->create
                         (
                             $this->data['title'],
                             $this->data['description'],
@@ -119,9 +118,10 @@ class Project extends Application {
                             $this->data['source'],
                             isset($this->data['github'])?$this->data['github']:'',
                             isset($this->data['demo'])?$this->data['github']:'',
-                            $this->data['tags'],
                             $this->data['images']
                         );
+                
+                $this->saveTags($id, $this->data['tags']);
                 $this->load->helper('url');
                 redirect('Admin/Project');
             }
@@ -138,9 +138,9 @@ class Project extends Application {
                             $this->data['source'],
                             $this->data['github'],
                             $this->data['demo'],
-                            $this->data['tags'],
                             $this->data['images']
                         );
+                $this->saveTags($id, $this->data['tags']);
                 $this->data['success'][] = array('message'=>'Project Edited');
             }
         }   
@@ -170,18 +170,39 @@ class Project extends Application {
         return true;
     }
     
-        private function presentForm()
+    private function presentForm()
+    {
+        $this->data['success'] = array();
+        $this->data['errors'] = array();
+
+        // Load dropzone
+        $this->data['styles'][] = array('style'=>'/assets/css/dropzone.css');
+        $this->data['scripts'][] = array('script'=>"/assets/js/dropzone.js");
+        $this->data['scripts'][] = array('script'=>"/assets/js/dropzonepjdrop.js");
+
+        // Load MCE
+        $this->data['scripts'][] = array('script'=>"//tinymce.cachefly.net/4.1/tinymce.min.js");
+        $this->data['components'][] = array('component'=>$this->parser->parse('components/tinymce', array('selector'=>'.editor'), true));
+    }
+    
+    private function saveTags($projectId, $tagString)
+    {
+        $seperated = explode(',', $tagString);
+        $tags = array();
+        
+        // Build saveabled tags array
+        foreach ($seperated as $tag)
         {
-            $this->data['success'] = array();
-            $this->data['errors'] = array();
-
-            // Load dropzone
-            $this->data['styles'][] = array('style'=>'/assets/css/dropzone.css');
-            $this->data['scripts'][] = array('script'=>"/assets/js/dropzone.js");
-            $this->data['scripts'][] = array('script'=>"/assets/js/dropzonepjdrop.js");
-
-            // Load MCE
-            $this->data['scripts'][] = array('script'=>"//tinymce.cachefly.net/4.1/tinymce.min.js");
-            $this->data['components'][] = array('component'=>$this->parser->parse('components/tinymce', array('selector'=>'.editor'), true));
+            $tags[] = array(
+                'tag'       => trim($tag),
+                'project'   => $projectId
+            );
         }
+        
+        // Remove existing tags from the project
+        $this->tags->unsetTags($projectId);
+        
+        // Add the new tags to the project
+        $this->tags->addTags($tags);
+    }
 }
