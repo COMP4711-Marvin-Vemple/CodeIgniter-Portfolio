@@ -32,6 +32,7 @@ class Project extends Application {
         $this->data['pagebody'] = 'admin/project-edit';
         
         // Load dropzone
+        $this->data['styles'][] = array('style'=>'/assets/css/dropzone.css');
         $this->data['scripts'][] = array('script'=>"/assets/js/dropzone.js");
         $this->data['scripts'][] = array('script'=>"/assets/js/dropzoneconfig.js");
         
@@ -49,6 +50,31 @@ class Project extends Application {
     public function edit($id) {
         $this->data['mode'] = 'admin';
         $this->data['pagebody'] = 'admin/project-edit';
+        $this->data['action'] == 'edit/' . $id;
+        
+        $project = $this->projects()->getById($id);
+        $this->data['id'] = $project['id'];
+        $this->data['title'] = $project['title'];
+        $this->data['description'] = $project['description'];
+        
+        
+        $this->presentForm();
+        $this->submit();
         $this->render();
+    }
+    
+    
+    /**
+     * Validate input data and create or edit a project.
+     */
+    public function submit()
+    {
+        if($this->input->post('Save', TRUE) != false)
+        {
+            $images = $this->input->post('image', true);
+            
+            $this->data['id'] = $this->input->post('id', true);
+        }
+        
     }
 }
