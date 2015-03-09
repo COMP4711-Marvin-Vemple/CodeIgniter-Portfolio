@@ -60,7 +60,8 @@ class Post extends Application {
     }
     
     /**
-     * Save an uploaded file
+     * Save an uploaded file this is an AJAX like operation, it designed to work
+     * with dropspace, drop space must handle adding the name of the file to the form.
      * 
      * @return boolean true.
      */

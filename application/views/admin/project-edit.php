@@ -2,17 +2,17 @@
       class="dropzone"
       id="psdropzone"></form>
 
-<form action="/admin/post" id="edit" method="POST">
+<form action="/admin/project/{action}" id="edit" method="POST">
     <div>
         <label for="id">ID</label>
         <input type="text" name="id" id="id" class="form-control" value="{id}" disabled="true">
         
         <!-- Image upload stuff -->
-        <label for="id">Title</label>
-        <input type="text" name="id" id="id" class="form-control" value="{title}">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" class="form-control" value="{title}">
         
-         <label for="id">Short Description</label>
-        <textarea name="short-description" class="form-control">{short_description}</textarea>
+         <label for="short_description">Short Description</label>
+        <textarea name="short_description" class="form-control">{short_description}</textarea>
         
         <label for="post">Description</label>
         <textarea name="description" class="editor">{description}</textarea>

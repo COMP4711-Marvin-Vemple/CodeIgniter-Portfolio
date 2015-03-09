@@ -17,11 +17,49 @@ class Projects extends CI_Model {
     }
     
     public function create($title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $tags, $images) {
+        $data = array('title' => $title,
+                      'description' => $description, 
+                      'short_description' => $short_description, 
+                      'image' => $image, 
+                      'thumb' => $thumb, 
+                      'featured' => $featured, 
+                      'date' => $date, 
+                      'source' => $source, 
+                      'github' => $github, 
+                      'demo' => $demo );
         
+        $this->db->insert('projects', $data);
+        $id = $this->db->insert_id();
+        foreach( $images as $i )
+        {
+            $this->images->addImage($i, 'image', $i, $id);
+        }
     }
     
     public function edit($id, $title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $tags, $images) {
         
+        
+        $data = array('title' => $title,
+                      'description' => $description, 
+                      'short_description' => $short_description, 
+                      'image' => $image, 
+                      'thumb' => $thumb, 
+                      'featured' => $featured, 
+                      'date' => $date, 
+                      'source' => $source, 
+                      'github' => $github, 
+                      'demo' => $demo );
+        
+        $this->db->where('id', $id);
+        $this->db->update('projects', $data);
+        
+        $id = $this->db->insert_id();
+        foreach( $images as $i )
+        {
+            $data = array($i, 'project image', $id, $i );
+            
+            $this->db->insert('images', $data);
+        }
     }
     
     public function delete($id) {

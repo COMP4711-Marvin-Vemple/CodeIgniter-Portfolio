@@ -11,10 +11,10 @@
         <td>{id}</td>
         <td>{title}</td>
         <td>
-            <a href="admin/project/edit/{id}" class="btn btn-default" type="button">Edit</a>
+            <a href="/admin/project/edit/{id}" class="btn btn-default" type="button">Edit</a>
         </td>
         <td>
-            <a href="admin/project/edit/{id}" class="btn btn-default" type="button">Delete</a>
+            <a href="/admin/project/delete/{id}" class="btn btn-default" type="button">Delete</a>
         <td>
     </tr>
     {/entry}
