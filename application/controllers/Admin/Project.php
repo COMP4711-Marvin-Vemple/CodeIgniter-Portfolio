@@ -64,7 +64,7 @@ class Project extends Application {
         $this->data['source'] = $project[0]['source'];
         $this->data['github'] = $project[0]['github'];
         $this->data['demo'] = $project[0]['demo'];
-        $tags = $this->tags->getByProject($project['id']);
+        $tags = $this->tags->getByProject($id);
         $this->data['tags'] = '';
         foreach($tags as $t)
         {
