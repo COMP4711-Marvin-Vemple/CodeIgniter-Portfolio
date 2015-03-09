@@ -29,6 +29,8 @@
        <label for="demo">Demo</label>
        <input type="url" class="form-control" value="{demo}">
     
+       <label for="tags"></label>
+       <input name="tags" class="form-control" value="{tags}">
         <input name="Save" class="btn btn-default" type="submit" value="Save" />
     </div>
     
