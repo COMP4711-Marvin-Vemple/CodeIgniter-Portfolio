@@ -34,6 +34,8 @@ class Projects extends CI_Model {
         {
             
             $data = array($i, 'project image', $id, $i );
+            
+            $this->db->insert('images', $data);
         }
     }
     
@@ -58,6 +60,8 @@ class Projects extends CI_Model {
         foreach( $images as $i )
         {
             $data = array($i, 'project image', $id, $i );
+            
+            $this->db->insert('images', $data);
         }
     }
     
