@@ -40,6 +40,7 @@ class Project extends Application {
         $this->data['action'] = 'create';
         
         $this->presentForm();
+        $this->submit();
         $this->render();
     }
     
@@ -73,31 +74,34 @@ class Project extends Application {
      */
     public function submit()
     {
-        if($this->input->post('Save', TRUE) != false)
+        // only proceed if the form as been submitted.
+        if($this->input->post('Save', TRUE) != false )
         {
             $images = $this->input->post('image', true);
             
             $this->data['id'] = $this->input->post('id', true);
-            $this->data['title'] = $this->post('title', true);
-            $this->data['short_description'] = $this->post('short_description', true);
-            $this->data['description'] = $this->post('description', true);
-            $this->data['source'] = $this->post('source', true);
-            $this->data['github'] = $this->post('github', true);
-            $this->data['demo']  = $this->post('demo', true);
+            $this->data['title'] = $this->input->post('title', true);
+            $this->data['short_description'] = $this->input->post('short_description', true);
+            $this->data['description'] = $this->input->post('description', true);
+            $this->data['source'] = $this->input->post('source', true);
+            $this->data['github'] = $this->input->post('github', true);
+            $this->data['demo']  = $this->input->post('demo', true);
             $this->data['tags'] = array();
+            $this->data['images'] = $this->input->post('image', true);
+            
+            // make sure there's images to save before it tries to save any.
+            if(count($this->data['images']) > 0)
+            {
+                $this->data['image'] = $this->data['images'][0];
+            }
+
+            if(!$this->validateInput())
+            {
+                return true;
+            }
         }
         
-        // make sure there's images to save before it tries to save any.
-        if(count($images) > 0)
-        {
-            $this->data['images'] = $this->post('images', true);
-            $this->data['image'] = $this->data['images'][0];
-        }
         
-        if(!$this->validateInput())
-        {
-            return true;
-        }
         
         
         if($this->data['id'] == '')

@@ -11,7 +11,7 @@
         <label for="title">Title</label>
         <input type="text" name="title" id="title" class="form-control" value="{title}">
         
-         <label for="id">Short Description</label>
+         <label for="short_description">Short Description</label>
         <textarea name="short_description" class="form-control">{short_description}</textarea>
         
         <label for="post">Description</label>
