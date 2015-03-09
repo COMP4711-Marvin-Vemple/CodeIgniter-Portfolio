@@ -56,7 +56,10 @@ class Project extends Application {
         $this->data['id'] = $project['id'];
         $this->data['title'] = $project['title'];
         $this->data['description'] = $project['description'];
-        
+        $this->data['short_description'] = $project['short_description'];
+        $this->data['featured'] = $project['featured'];
+        $this->data['source'] = $project['github'];
+        $this->data['demo'] = $project['demo'];
         
         $this->presentForm();
         $this->submit();
