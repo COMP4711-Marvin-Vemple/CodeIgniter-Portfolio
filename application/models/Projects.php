@@ -17,7 +17,9 @@ class Projects extends CI_Model {
     }
     
     public function create($title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $tags, $images) {
+        $data = array($title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo );
         
+        $this->db->insert('projects', $data);
     }
     
     public function edit($id, $title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $tags, $images) {
