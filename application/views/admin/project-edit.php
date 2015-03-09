@@ -4,6 +4,9 @@
 
 <form action="/admin/project/{action}" id="edit" method="POST">
     <div>
+        <div id="imageview" class="row">
+            
+        </div>
         <label for="id">ID</label>
         <input type="text" name="id" id="id" class="form-control" value="{id}" disabled="true">
         

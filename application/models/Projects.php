@@ -38,7 +38,6 @@ class Projects extends CI_Model {
     
     public function edit($id, $title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $tags, $images) {
         
-        
         $data = array('title' => $title,
                       'description' => $description, 
                       'short_description' => $short_description, 
