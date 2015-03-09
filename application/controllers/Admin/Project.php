@@ -30,15 +30,15 @@ class Project extends Application {
     public function create() {
         $this->data['mode'] = 'admin';
         $this->data['pagebody'] = 'admin/project-edit';
+        $this->data['id'] = '';
+        $this->data['title'] = '';
+        $this->data['short_description'] = '';
+        $this->data['description'] = '';
+        $this->data['source'] = '';
+        $this->data['github'] = '';
+        $this->data['demo'] = '';
         
-        // Load dropzone
-        $this->data['styles'][] = array('style'=>'/assets/css/dropzone.css');
-        $this->data['scripts'][] = array('script'=>"/assets/js/dropzone.js");
-        $this->data['scripts'][] = array('script'=>"/assets/js/dropzoneconfig.js");
-        
-        // Load MCE
-        $this->data['scripts'][] = array('script'=>"//tinymce.cachefly.net/4.1/tinymce.min.js");
-        $this->data['components'][] = array('component'=>$this->parser->parse('components/tinymce', array('selector'=>'.editor'), true));
+        $this->presentForm();
         $this->render();
     }
     
@@ -166,4 +166,19 @@ class Project extends Application {
         // Return true if there are no errors
         return true;
     }
+    
+        private function presentForm()
+        {
+            $this->data['success'] = array();
+            $this->data['errors'] = array();
+
+            // Load dropzone
+            $this->data['styles'][] = array('style'=>'/assets/css/dropzone.css');
+            $this->data['scripts'][] = array('script'=>"/assets/js/dropzone.js");
+            $this->data['scripts'][] = array('script'=>"/assets/js/dropzoneconfig.js");
+
+            // Load MCE
+            $this->data['scripts'][] = array('script'=>"//tinymce.cachefly.net/4.1/tinymce.min.js");
+            $this->data['components'][] = array('component'=>$this->parser->parse('components/tinymce', array('selector'=>'.editor'), true));
+        }
 }
