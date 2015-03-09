@@ -25,9 +25,19 @@ class Images extends CI_Model {
      * @param int $project_id the id of the project to associate the image with
      */
     public function addImage($filename, $alt, $project_id) {
-        $data = array( 'filename' => $filename,
-                       'alt'      => $alt,
-                       'project'  => $project_id );
+        // Ensure the Image isn't already added to the project
+        $this->db->select('*');
+        $this->db->from('images');
+        $this->db->where('filename', $filename);
+        $this->db->where('project', $project_id);
+        if ($this->db->count_all_results() != 0)
+          return;
+        
+        // Add the Image to the project
+        $data = array( 'filename'   => $filename,
+                       'thumbnail'  => $filename,
+                       'alt'        => $alt,
+                       'project'    => $project_id );
         
         $this->db->insert('images', $data);
     }

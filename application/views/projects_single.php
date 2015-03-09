@@ -1,10 +1,10 @@
 {project}
 <div class="" id="project-main">
-    <img class="fullsize" src={image} alt=""/>
+    <img class="fullsize" src="/uploads/{image}" alt=""/>
     <div id="image-gallery" class="clearfix">
         {images}
-        <a href="{filename}" data-lightbox="gallery">
-            <img src="{thumbnail}" alt="{alt}" />
+        <a href="/uploads/{filename}" data-lightbox="gallery">
+            <img src="/uploads/{thumbnail}" alt="{alt}" />
         </a>
         {/images}
     </div>

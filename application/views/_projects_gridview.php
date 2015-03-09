@@ -1,7 +1,7 @@
 {projects}
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src={thumb} alt="...">
+      <img src="/uploads/{thumb}" alt="...">
       <div class="caption">
         <h3>{title}</h3>
         <em>{date}</em>

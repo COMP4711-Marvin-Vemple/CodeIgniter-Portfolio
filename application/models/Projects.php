@@ -16,6 +16,22 @@ class Projects extends CI_Model {
         parent::__construct();
     }
     
+    /**
+     * Create a new Project
+     * 
+     * @param String $title the title of the project
+     * @param String $description the description of the project
+     * @param String $short_description a short description of the project
+     * @param String $image the featured image of the project
+     * @param String $thumb a thumbnail for the project
+     * @param String $featured 't' for true, 'f' for false
+     * @param String $date the date of upload
+     * @param String $source sample source code
+     * @param String $github a link to github
+     * @param String $demo a link to a demo
+     * @param String $images an array of images to be added
+     * @return int ID the id of the project
+     */
     public function create($title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $images) {
         $data = array('title' => $title,
                       'description' => $description, 
@@ -32,12 +48,28 @@ class Projects extends CI_Model {
         $id = $this->db->insert_id();
         foreach( $images as $i )
         {
-            $this->images->addImage($i, 'image', $i, $id);
+            $this->images->addImage($i['image'], 'image', $id);
         }
         
         return $id;
     }
     
+    /**
+     * Edit an existing Project
+     * 
+     * @param Int $id the id of the project to edit
+     * @param String $title the title of the project
+     * @param String $description the description of the project
+     * @param String $short_description a short description of the project
+     * @param String $image the featured image of the project
+     * @param String $thumb a thumbnail for the project
+     * @param String $featured 't' for true, 'f' for false
+     * @param String $date the date of upload
+     * @param String $source sample source code
+     * @param String $github a link to github
+     * @param String $demo a link to a demo
+     * @param String $images an array of images to be added
+     */
     public function edit($id, $title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $images) {
         
         $data = array('title' => $title,
@@ -54,15 +86,17 @@ class Projects extends CI_Model {
         $this->db->where('id', $id);
         $this->db->update('projects', $data);
         
-        $id = $this->db->insert_id();
         foreach( $images as $i )
         {
-            $data = array($i, 'project image', $id, $i );
-            
-            $this->db->insert('images', $data);
+            $this->images->addImage($i['image'], 'image', $id);
         }
     }
     
+    /**
+     * Delete a Project
+     * 
+     * @param int $id the id of the project to delete
+     */
     public function delete($id) {
         $this->db->where('id', $id);
         $this->db->delete('projects');
