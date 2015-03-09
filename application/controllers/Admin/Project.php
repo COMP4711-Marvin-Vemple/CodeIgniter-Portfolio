@@ -83,15 +83,19 @@ class Project extends Application {
             $this->data['source'] = $this->post('source', true);
             $this->data['github'] = $this->post('github', true);
             $this->data['demo']  = $this->post('demo', true);
-            $this->data['images'] = $this->post('images', true);
-            $this->data['image'] = $this->data['images'][0];
             $this->data['tags'] = array();
         }
         
         // make sure there's images to save before it tries to save any.
         if(count($images) > 0)
         {
-            
+            $this->data['images'] = $this->post('images', true);
+            $this->data['image'] = $this->data['images'][0];
+        }
+        
+        if(!$this->validateInput())
+        {
+            return;
         }
         
         
@@ -117,9 +121,28 @@ class Project extends Application {
         }
         else
         {
-            $this->project->edit
+            $this->project->edit(
+                        $this->data['id'],
+                        $this->data['description'],
+                        $this->data['short_description'],
+                        $this->data['image'],
+                        $this->data['thumb'],
+                        $this->data['featured'],
+                        date("Y-m-d H:i:s"),
+                        $this->data['source'],
+                        $this->data['github'],
+                        $this->data['demo'],
+                        $this->data['tags'],
+                        $this->data['images']
+                    );
+            $this->data['success'][] = array('message'=>'Project Edited');
         }
         
+        
+    }
+    
+    private function validateInput()
+    {
         
     }
 }
