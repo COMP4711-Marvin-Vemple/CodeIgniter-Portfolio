@@ -32,16 +32,28 @@ class Projects extends CI_Model {
         $id = $this->db->insert_id();
         foreach( $images as $i )
         {
+            
             $data = array($i, 'project image', $id, $i );
         }
     }
     
     public function edit($id, $title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $tags, $images) {
-        $data = array($title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo );
+        
+        
+        $data = array('title' => $title,
+                      'description' => $description, 
+                      'short_description' => $short_description, 
+                      'image' => $image, 
+                      'thumb' => $thumb, 
+                      'featured' => $featured, 
+                      'date' => $date, 
+                      'source' => $source, 
+                      'github' => $github, 
+                      'demo' => $demo );
         
         $this->db->where('id', $id);
-        $this->db->update('posts', $data);
-        $this->db->insert('projects', $data);
+        $this->db->update('projects', $data);
+        
         $id = $this->db->insert_id();
         foreach( $images as $i )
         {
