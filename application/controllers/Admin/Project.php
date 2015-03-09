@@ -38,6 +38,7 @@ class Project extends Application {
         $this->data['github'] = '';
         $this->data['demo'] = '';
         $this->data['action'] = 'create';
+        $this->data['tags'] = '';
         
         $this->presentForm();
         $this->submit();
@@ -63,6 +64,12 @@ class Project extends Application {
         $this->data['source'] = $project[0]['source'];
         $this->data['github'] = $project[0]['github'];
         $this->data['demo'] = $project[0]['demo'];
+        $tags = $this->tags->getByProject($project['id']);
+        $this->data['tags'] = '';
+        foreach($tags as $t)
+        {
+            $this->data['tags'] += $t . ',';
+        }
         
         $this->presentForm();
         $this->submit();
