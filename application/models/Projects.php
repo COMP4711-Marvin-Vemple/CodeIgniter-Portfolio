@@ -32,10 +32,7 @@ class Projects extends CI_Model {
         $id = $this->db->insert_id();
         foreach( $images as $i )
         {
-            
-            $data = array($i, 'project image', $id, $i );
-            
-            $this->db->insert('images', $data);
+            $this->images->addImage($i, 'image', $i, $id);
         }
     }
     

@@ -99,51 +99,46 @@ class Project extends Application {
             {
                 return true;
             }
-        }
-        
-        
-        
-        
-        if($this->data['id'] == '')
-        {
-            $this->project->create
-                    (
-                        $this->data['title'],
-                        $this->data['description'],
-                        $this->data['short_description'],
-                        $this->data['image'],
-                        $this->data['thumb'],
-                        $this->data['featured'],
-                        date("Y-m-d H:i:s"),
-                        $this->data['source'],
-                        $this->data['github'],
-                        $this->data['demo'],
-                        $this->data['tags'],
-                        $this->data['images']
-                    );
-            $this->load->helper('url');
-            redirect('Admin/Project');
-        }
-        else
-        {
-            $this->project->edit(
-                        $this->data['id'],
-                        $this->data['description'],
-                        $this->data['short_description'],
-                        $this->data['image'],
-                        $this->data['thumb'],
-                        $this->data['featured'],
-                        date("Y-m-d H:i:s"),
-                        $this->data['source'],
-                        $this->data['github'],
-                        $this->data['demo'],
-                        $this->data['tags'],
-                        $this->data['images']
-                    );
-            $this->data['success'][] = array('message'=>'Project Edited');
-        }
-        
-        
+            
+            if($this->data['id'] == '')
+            {
+                $this->projects->create
+                        (
+                            $this->data['title'],
+                            $this->data['short_description'],
+                            $this->data['description'],
+                            $this->data['image'],
+                            $this->data['image'],
+                            'f',
+                            date("Y-m-d H:i:s"),
+                            $this->data['source'],
+                            isset($this->data['github'])?$this->data['github']:'',
+                            isset($this->data['demo'])?$this->data['github']:'',
+                            $this->data['tags'],
+                            $this->data['images']
+                        );
+                $this->load->helper('url');
+                redirect('Admin/Project');
+            }
+            else
+            {
+                $this->projects->edit(
+                            $this->data['id'],
+                            $this->data['description'],
+                            $this->data['short_description'],
+                            $this->data['image'],
+                            $this->data['thumb'],
+                            $this->data['featured'],
+                            date("Y-m-d H:i:s"),
+                            $this->data['source'],
+                            $this->data['github'],
+                            $this->data['demo'],
+                            $this->data['tags'],
+                            $this->data['images']
+                        );
+                $this->data['success'][] = array('message'=>'Project Edited');
+            }
+        }   
     }
     
     /*
