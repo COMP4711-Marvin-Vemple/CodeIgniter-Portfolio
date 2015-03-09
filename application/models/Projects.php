@@ -16,7 +16,7 @@ class Projects extends CI_Model {
         parent::__construct();
     }
     
-    public function create($title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $tags, $images) {
+    public function create($title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $images) {
         $data = array('title' => $title,
                       'description' => $description, 
                       'short_description' => $short_description, 
@@ -34,9 +34,11 @@ class Projects extends CI_Model {
         {
             $this->images->addImage($i, 'image', $i, $id);
         }
+        
+        return $id;
     }
     
-    public function edit($id, $title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $tags, $images) {
+    public function edit($id, $title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $images) {
         
         $data = array('title' => $title,
                       'description' => $description, 
