@@ -39,6 +39,8 @@ class Project extends Application {
         $this->data['demo'] = '';
         $this->data['tags'] = '';
         $this->data['action'] = 'create';
+        $this->data['images'] = array();
+        $this->data['saved_images'] = array();
         
         $this->presentForm();
         $this->submit();
@@ -59,14 +61,22 @@ class Project extends Application {
         $this->data['id'] = $id;
         $this->data['title'] = $project[0]['title'];
         $this->data['description'] = $project[0]['description'];
+        $this->data['image'] = $project[0]['image'];
         $this->data['short_description'] = $project[0]['short_description'];
         $this->data['featured'] = $project[0]['featured'];
         $this->data['source'] = $project[0]['source'];
         $this->data['github'] = $project[0]['github'];
         $this->data['demo'] = $project[0]['demo'];
         $this->data['tags'] = $this->tagArrayToString($project[0]['tags']);
+        $this->data['images'] = array();
+        $this->data['saved_images'] = array();
         
-        var_dump($this->data);
+        // Display images that have been saved already
+        $images = $this->images->getByProject($id);
+        foreach ($images as $image)
+        {
+            $this->data['saved_images'][] = array('image'=>$image->filename);
+        }
         
         $this->presentForm();
         $this->submit();
@@ -81,10 +91,7 @@ class Project extends Application {
     {
         // only proceed if the form as been submitted.
         if($this->input->post('Save', TRUE) != false )
-        {
-            
-            $images = $this->input->post('image', true);
-            
+        {   
             $this->data['id'] = $this->input->post('id', true);
             $this->data['title'] = $this->input->post('title', true);
             $this->data['short_description'] = $this->input->post('short_description', true);
@@ -94,27 +101,37 @@ class Project extends Application {
             $this->data['demo']  = $this->input->post('demo', true);
             $this->data['tags'] = $this->input->post('tags', true);
             $this->data['images'] = $this->input->post('image', true);
-            
-            // make sure there's images to save before it tries to save any.
-            if(count($this->data['images']) > 0)
-            {
-                $this->data['image'] = $this->data['images'][0];
-            }
 
+            if ($this->data['images'] != FALSE)
+            {
+                $newImageArray = array();
+                
+                foreach($this->data['images'] as $image)
+                {
+                    $newImageArray[] = array('image'=>$image);
+                }
+                
+                $this->data['images'] = $newImageArray;
+            }
+            else
+            {
+                $this->data['images'] = array();
+            }
+            
             if(!$this->validateInput())
             {
                 return true;
             }
             
-            if($this->data['id'] == '')
+            if($this->data['id'] == null)
             {
                 $id = $this->projects->create
                         (
                             $this->data['title'],
                             $this->data['description'],
                             $this->data['short_description'],
-                            $this->data['image'],
-                            $this->data['image'],
+                            $this->data['images'][0]['image'],
+                            $this->data['images'][0]['image'],
                             'f',
                             date("Y-m-d H:i:s"),
                             $this->data['source'],
@@ -131,10 +148,11 @@ class Project extends Application {
             {
                 $this->projects->edit(
                             $this->data['id'],
+                            $this->data['title'],
                             $this->data['description'],
                             $this->data['short_description'],
                             $this->data['image'],
-                            $this->data['thumb'],
+                            $this->data['image'],
                             $this->data['featured'],
                             date("Y-m-d H:i:s"),
                             $this->data['source'],
@@ -142,7 +160,7 @@ class Project extends Application {
                             $this->data['demo'],
                             $this->data['images']
                         );
-                $this->saveTags($id, $this->data['tags']);
+                $this->saveTags($this->data['id'], $this->data['tags']);
                 $this->data['success'][] = array('message'=>'Project Edited');
             }
         }   
