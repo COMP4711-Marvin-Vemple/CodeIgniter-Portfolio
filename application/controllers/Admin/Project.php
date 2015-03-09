@@ -54,14 +54,15 @@ class Project extends Application {
         $this->data['pagebody'] = 'admin/project-edit';
         $this->data['action'] = 'edit/' . $id;
         
-        $project = $this->projects()->getById($id);
-        $this->data['id'] = $project['id'];
-        $this->data['title'] = $project['title'];
-        $this->data['description'] = $project['description'];
-        $this->data['short_description'] = $project['short_description'];
-        $this->data['featured'] = $project['featured'];
-        $this->data['source'] = $project['github'];
-        $this->data['demo'] = $project['demo'];
+        $project = $this->projects->getById($id);
+        $this->data['id'] = $id;
+        $this->data['title'] = $project[0]['title'];
+        $this->data['description'] = $project[0]['description'];
+        $this->data['short_description'] = $project[0]['short_description'];
+        $this->data['featured'] = $project[0]['featured'];
+        $this->data['source'] = $project[0]['source'];
+        $this->data['github'] = $project[0]['github'];
+        $this->data['demo'] = $project[0]['demo'];
         
         $this->presentForm();
         $this->submit();
@@ -75,6 +76,10 @@ class Project extends Application {
     public function submit()
     {
         // only proceed if the form as been submitted.
+        if(length($this->input->post('image', true)) > 0)
+        {
+            $this->projects->getById($this->input->post('id', true));
+        }
         if($this->input->post('Save', TRUE) != false )
         {
             $images = $this->input->post('image', true);
@@ -105,8 +110,8 @@ class Project extends Application {
                 $this->projects->create
                         (
                             $this->data['title'],
-                            $this->data['short_description'],
                             $this->data['description'],
+                            $this->data['short_description'],
                             $this->data['image'],
                             $this->data['image'],
                             'f',
@@ -156,8 +161,6 @@ class Project extends Application {
         if (strlen($this->data['description']) == 0)
             $this->data['errors'][] = array('message'=>'Post must not be emtpy.');
 
-        if (count($this->data['images']) == 0)
-            $this->data['errors'][] = array('message'=>'Please submit an image.');
         
         // Return false if there are errors
         if (count($this->data['errors']) > 0)
@@ -175,7 +178,7 @@ class Project extends Application {
             // Load dropzone
             $this->data['styles'][] = array('style'=>'/assets/css/dropzone.css');
             $this->data['scripts'][] = array('script'=>"/assets/js/dropzone.js");
-            $this->data['scripts'][] = array('script'=>"/assets/js/dropzoneconfig.js");
+            $this->data['scripts'][] = array('script'=>"/assets/js/dropzonepjdrop.js");
 
             // Load MCE
             $this->data['scripts'][] = array('script'=>"//tinymce.cachefly.net/4.1/tinymce.min.js");
