@@ -37,6 +37,7 @@ class Project extends Application {
         $this->data['source'] = '';
         $this->data['github'] = '';
         $this->data['demo'] = '';
+        $this->data['action'] = 'create';
         
         $this->presentForm();
         $this->render();
