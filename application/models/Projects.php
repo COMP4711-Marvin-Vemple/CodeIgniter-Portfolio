@@ -20,6 +20,14 @@ class Projects extends CI_Model {
         $data = array($title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo );
         
         $this->db->insert('projects', $data);
+        $id = $this->db->insert_id();
+        foreach( $images as $i )
+        {
+            $data = array($i, 'project image', $id, $i );
+        }
+        
+       
+        
     }
     
     public function edit($id, $title, $description, $short_description, $image, $thumb, $featured, $date, $source, $github, $demo, $tags, $images) {
