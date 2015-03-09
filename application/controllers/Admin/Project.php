@@ -37,6 +37,7 @@ class Project extends Application {
         $this->data['source'] = '';
         $this->data['github'] = '';
         $this->data['demo'] = '';
+        $this->data['tags'] = '';
         $this->data['action'] = 'create';
         
         $this->presentForm();
@@ -63,7 +64,7 @@ class Project extends Application {
         $this->data['source'] = $project[0]['source'];
         $this->data['github'] = $project[0]['github'];
         $this->data['demo'] = $project[0]['demo'];
-        $this->data['tags'] = $project[0]['tags'];
+        $this->data['tags'] = $this->tagArrayToString($project[0]['tags']);
         
         var_dump($this->data);
         
@@ -79,8 +80,6 @@ class Project extends Application {
     public function submit()
     {
         // only proceed if the form as been submitted.
-       
-       
         if($this->input->post('Save', TRUE) != false )
         {
             
@@ -207,5 +206,17 @@ class Project extends Application {
         
         // Add the new tags to the project
         $this->tags->addTags($tags);
+    }
+    
+    private function tagArrayToString($tags)
+    {
+        $tagNames = array();
+        
+        foreach ($tags as $tag)
+        {
+            $tagNames[] = $tag->tag;
+        }
+        
+        return implode(',', $tagNames);
     }
 }
