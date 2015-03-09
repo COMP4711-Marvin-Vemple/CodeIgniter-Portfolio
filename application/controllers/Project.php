@@ -15,7 +15,7 @@ class Project extends Application {
     /**
      * The number of Projects to show on a Page.
      */
-    private static $NUM_PROJECTS_PER_PAGE = 1;
+    private static $NUM_PROJECTS_PER_PAGE = 10;
     
     /**
      * Templates used for displaying data.

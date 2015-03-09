@@ -5,7 +5,7 @@
       <div class="caption">
         <h3>{title}</h3>
         <em>{date}</em>
-        <p>{description}</p>
+        <p>{short_description}</p>
         <p><a href="/project/id/{id}" class="btn btn-primary" role="button">See More</a></p>
       </div>
     </div>
