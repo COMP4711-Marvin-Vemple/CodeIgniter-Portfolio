@@ -52,6 +52,7 @@ class Tags extends CI_Model {
      * @return mixed array of all tags in the database.
      */
     public function getAll() {
+        $this->db->group_by('tag');
         return (array) $this->db->get('tags')->result();
     }
 }
