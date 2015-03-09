@@ -8,8 +8,8 @@
         <input type="text" name="id" id="id" class="form-control" value="{id}" disabled="true">
         
         <!-- Image upload stuff -->
-        <label for="id">Title</label>
-        <input type="text" name="id" id="id" class="form-control" value="{title}">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" class="form-control" value="{title}">
         
          <label for="id">Short Description</label>
         <textarea name="short_description" class="form-control">{short_description}</textarea>

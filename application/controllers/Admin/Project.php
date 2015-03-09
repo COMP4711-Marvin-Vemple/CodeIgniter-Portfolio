@@ -96,7 +96,7 @@ class Project extends Application {
         
         if(!$this->validateInput())
         {
-            return;
+            return true;
         }
         
         
@@ -151,10 +151,10 @@ class Project extends Application {
         if (strlen($this->data['title']) == 0)
             $this->data['errors'][] = array('message'=>'Title must not be emtpy.');
 
-        if (strlen($this->data['description']) > 128)
+        if (strlen($this->data['short_description']) > 128)
             $this->data['errors'][] = array('message'=>'Description must be <= 128 characters.');
 
-        if (strlen($this->data['post']) == 0)
+        if (strlen($this->data['description']) == 0)
             $this->data['errors'][] = array('message'=>'Post must not be emtpy.');
 
         if (count($this->data['images']) == 0)
