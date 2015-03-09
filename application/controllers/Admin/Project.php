@@ -79,8 +79,11 @@ class Project extends Application {
     public function submit()
     {
         // only proceed if the form as been submitted.
+       
+       
         if($this->input->post('Save', TRUE) != false )
         {
+            
             $images = $this->input->post('image', true);
             
             $this->data['id'] = $this->input->post('id', true);
