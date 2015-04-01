@@ -8,18 +8,6 @@
  */
 class Repositories extends CI_Model {
     
-    /** BOGUS DATA **/
-    var $data = array(
-      array('id' => 0, 'title' => 'Test Repo 1', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
-      array('id' => 1, 'title' => 'Test Repo 2', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
-      array('id' => 2, 'title' => 'Test Repo 3', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
-      array('id' => 3, 'title' => 'Test Repo 4', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
-      array('id' => 4, 'title' => 'Test Repo 5', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
-      array('id' => 5, 'title' => 'Test Repo 6', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
-      array('id' => 6, 'title' => 'Test Repo 7', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'))),
-      array('id' => 7, 'title' => 'Test Repo 8', 'description' => 'This is the description', 'commits' => array( array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com'), array('message' => 'Test Commit', 'date' => 'Today', 'url' => 'http://www.google.com')))
-    );
-    
     /**
      * Construct the base CI_Model
      */
@@ -28,48 +16,68 @@ class Repositories extends CI_Model {
     }
     
     /**
-     * Get the Repository with the given ID
+     * Get the Repository Commits for the given repo
      * 
-     * @param int $id the ID of the Repo to get
+     * @param string $username the owner of the repo
+     * @param string $repo the name of the repo
+     * @param int $count the maximum number of commits to return
      * @return Repo data
      */
-    public function getById($id) {
-        return array($this->data[$id]);
-    }
-    
-    /**
-     * Get Repositories on a certain page with the given number
-     * of Repos per page.
-     * 
-     * @param int $page the Page number (1-n) inclusive.
-     * @param int $perPage the number of Repos to return per page.
-     * @return Post data
-     */
-    public function getPaginated($page, $perPage) {
+    public function getCommits($username, $repo, $count) {
+        $this->load->library('GitHub/GitHubClient', '', 'github');
+        $commits = (array) $this->github->repos->commits->listCommitsOnRepository($username,
+                                                                                  $repo,
+                                                                                  null,
+                                                                                  null,
+                                                                                  $username);
+        
         $retval = array();
-        $pages = $this->getPageCount($perPage);
+        $numAdded = 0;
         
-        if ($page < 1 || $page > $pages)
-            return $retval;
-        
-        $i = ($page * $perPage) - $perPage;
-        while ($i < count($this->data) && count($retval) < $perPage) {
-            $retval[] = $this->data[$i];
-            $i++;
+        // Add up to $count of the most recent commits to the output array
+        for ($i = 0; $i < count($commits) && $numAdded < $count; $i++) {
+            $commit = $commits[$i];
+            $data = array();
+            
+            // Get the Author name
+            $data['author'] = 'Anonymous';
+            if ($commit->getAuthor() != null) {
+                $data['author'] = $commit->getAuthor()->getLogin();
+            }
+            
+            $data['message'] = $commit->getCommit()->getMessage();
+            $data['owner'] = $username;
+            $data['repo'] = $repo;
+            $data['sha'] = $commit->getSha();
+            $retval[] = $data;
+            
+            $numAdded++;
         }
         
         return $retval;
     }
     
     /**
-     * Get the number of pages required to show all Repos with the given number of
-     * Repos per page.
+     * Get Repositories from user.
      * 
-     * @param int $perPage the number of repos per page
-     * @return int the number of pages required to show all repos.
+     * @param $username the username of the users whose repositories to retreive
+     * @param $type the type of repos to get ('all', 'owner', 'member')
+     * @return Repositories formatted in an array
      */
-    public function getPageCount($perPage)
-    {
-        return ceil(count($this->data) / $perPage);
+    public function getRepositories($username, $type) {
+        $this->load->library('GitHub/GitHubClient', '', 'github');
+        $repos = (array) $this->github->repos->listUserRepositories($username, $type, 'updated');
+        
+        $retval = array();
+        foreach($repos as $repo) {
+            $data = array();
+            $data['id'] = $repo->getId();
+            $data['title'] = $repo->getName();
+            $data['description'] = $repo->getDescription();
+            $data['url'] = $repo->getHtmlUrl();
+            $retval[] = $data;
+        }
+        
+        return $retval;
     }
 }

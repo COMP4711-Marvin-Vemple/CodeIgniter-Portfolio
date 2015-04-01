@@ -19,11 +19,18 @@ class Welcome extends Application {
      * and recent blog posts.
      */
     public function index() {
+        $this->data['scripts'][] = array( 'script' => '/assets/js/banner.js');
+        
         $featured_projects = $this->projects->getFeatured();
-        $this->data['first_featured_project'] = array(array_shift($featured_projects));
+        $this->data['first_featured_project'] = array();
+        
+        if (count($featured_projects) > 0)
+            $this->data['first_featured_project'] = array(array_shift($featured_projects));
+        
         $this->data['featured_projects'] = $featured_projects;
-        $this->data['recent_posts'] = $this->posts->getPaginated(1, Welcome::$NUM_RECENT_POSTS);
+        $this->data['recent_posts'] = $this->posts->getRecent(Welcome::$NUM_RECENT_POSTS);
         $this->data['pagebody'] = 'homepage';
+        
         $this->render();
     }
 }

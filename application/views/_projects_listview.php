@@ -1,10 +1,10 @@
 {projects}
   <div class="list-view">
     <div>
-      <img src={thumbnail} alt="...">
+      <img src="/uploads/{thumb}" alt="...">
       <div class="caption">
           <a href="/project/id/{id}"><h3>{title}</h3></a>
-        <p>{description}</p>
+        <p>{short_description}</p>
       </div>
     </div>
   </div>
